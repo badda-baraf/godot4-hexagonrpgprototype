@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://uptvhq8u4gi4"]
+
+[ext_resource type="Script" path="res://src/UnitDataUI.gd" id="1_4u756"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_left = 0.601
+anchor_top = 0.683
+anchor_right = 0.938
+anchor_bottom = 0.934
+offset_left = -0.35199
+offset_top = -1.58401
+offset_right = 3.42395
+offset_bottom = 1.76801
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_4u756")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="AttackLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+
+[node name="StaminaLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stamina"
+
+[node name="DefenseLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Defense"
+
+[node name="FocusLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Focus"
+
+[node name="SkillsLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Skills"

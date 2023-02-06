@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://ch0jnio756o3x"]
+
+[ext_resource type="Script" path="res://src/CharacterUnitBase.gd" id="1_11rme"]
+[ext_resource type="Script" path="res://src/ai.gd" id="1_16vxs"]
+[ext_resource type="Texture2D" uid="uid://b3iyde3111y2" path="res://icon.svg" id="2_c0ajl"]
+[ext_resource type="Script" path="res://src/unit_object.gd" id="2_rs13p"]
+[ext_resource type="Script" path="res://src/equiplable_object.gd" id="4_1xf7c"]
+[ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
+[ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jlvmp"]
+radius = 67.1863
+
+[node name="CharacterUnit" type="AnimatableBody2D"]
+input_pickable = true
+script = ExtResource("1_11rme")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_c0ajl")
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("1_16vxs")
+
+[node name="UnitObject" type="Node" parent="."]
+script = ExtResource("2_rs13p")
+unitResource = ExtResource("4_66cvg")
+
+[node name="EquipableObject" type="Node" parent="."]
+script = ExtResource("4_1xf7c")
+
+[node name="Stamina" type="Node" parent="."]
+script = ExtResource("6_8nx5b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jlvmp")

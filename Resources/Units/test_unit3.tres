@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://dvt4khxq4anog"]
+
+[ext_resource type="Script" path="res://src/unit_resource.gd" id="1_a7ko4"]
+
+[resource]
+script = ExtResource("1_a7ko4")
+unitName = "TEST UNIT GLASS"
+id = 0
+stamina = 15
+strength = 18
+defense = 3
+speed = 10
+focus = 8
+startingSpec = 10
+personalSkills = []
+strengthSkills = {
+1: 30,
+30: 80
+}
+speedSkills = {}
+focusSkills = {
+10: &"home"
+}
+defenseSkills = {}

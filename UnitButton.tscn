@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/UnitButton.gd" id="1_bhvcu"]
+[ext_resource type="Texture2D" uid="uid://b3iyde3111y2" path="res://icon.svg" id="1_ueb5g"]
+
+[node name="Button" type="Button"]
+offset_left = 46.0
+offset_right = 145.0
+offset_bottom = 23.0
+script = ExtResource("1_bhvcu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -38.0
+offset_right = -13.0
+offset_bottom = 24.0
+texture = ExtResource("1_ueb5g")
+expand_mode = 1

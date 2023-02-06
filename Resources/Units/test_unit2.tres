@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://cvyd8d8bo085p"]
+
+[ext_resource type="Script" path="res://src/unit_resource.gd" id="1_a7ko4"]
+
+[resource]
+script = ExtResource("1_a7ko4")
+unitName = "TEST UNIT 2 HEAL"
+id = 0
+stamina = 15
+strength = 5
+defense = 3
+speed = 2
+focus = 3
+startingSpec = 10
+personalSkills = []
+strengthSkills = {
+1: 30,
+30: 80
+}
+speedSkills = {}
+focusSkills = {
+10: &"home"
+}
+defenseSkills = {}
