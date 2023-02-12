@@ -1,15 +1,15 @@
-extends Node2D
+extends CharacterBody2D
 class_name Cursor
 
-var velocity = Vector2(0,0)
+#var velocity = Vector2(0,0)
 const SPEED = 300.0
 var tm:TileMap
 signal selectedTile
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("act"):
 		selectedTile.emit()
-		print_debug(get_tile_cord())
-	pass
+		if Game.focusedCharacter !=null:
+			await set_selected_unit()
 
 func get_tile_type():
 	var tileCord = get_tile_cord()
@@ -29,8 +29,27 @@ func get_tile_cord() -> Vector2i:
 		return Vector2i(0,0)
 
 
+func is_focused_on_unit():
+	if Game.focusedCharacter != null:
+		return true
+	else:
+		return false
+
+
+func set_selected_unit():
+	Game.selectedUnit = Game.focusedCharacter
+	Game.selectedCharacter.emit()
+	print_debug(Game.selectedUnit)
+
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	position = get_global_mouse_position()
+	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	velocity = input_direction * SPEED
+	move_and_slide()
+
+#	position = get_global_mouse_position()
 #	print_debug(get_tile_cord())
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://b5tn4oxw6rw52"]
+
+[ext_resource type="Script" path="res://src/skill_resource.gd" id="1_35tb3"]
+
+[resource]
+script = ExtResource("1_35tb3")
+name = "Black Ray"
+type = 0
+effect = 1
+statTargets = [0]
+costType = 0
+strength = 12
+chargeCost = 2
+range = 1
+maxTargets = 1
+skillDescription = "Default Des"

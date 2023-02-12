@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://dakypnbytcaxx"]
+
+[ext_resource type="Script" path="res://src/unit_resource.gd" id="1_cs1by"]
+
+[resource]
+script = ExtResource("1_cs1by")
+unitName = "Unit 3 DEF"
+id = 2
+stamina = 50
+strength = 5
+defense = 10
+speed = 2
+focus = 3
+startingSpec = 50
+personalSkills = []
+strengthSkills = {
+1: 30,
+30: 80
+}
+speedSkills = {}
+focusSkills = {
+10: &"home"
+}
+defenseSkills = {}

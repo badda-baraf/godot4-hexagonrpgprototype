@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnu5mtdtixv2d"]
+[gd_scene load_steps=8 format=3 uid="uid://cnu5mtdtixv2d"]
 
 [ext_resource type="TileSet" uid="uid://dkdm6fpq3g2pj" path="res://tile_set.tres" id="1_inqsk"]
 [ext_resource type="Script" path="res://src/map_scene.gd" id="1_j5vw8"]
@@ -6,9 +6,11 @@
 [ext_resource type="Script" path="res://src/tile_type.gd" id="3_q5nom"]
 [ext_resource type="PackedScene" uid="uid://uptvhq8u4gi4" path="res://UnitDataUI.tscn" id="5_rd2iq"]
 [ext_resource type="Script" path="res://src/TurnSystem.gd" id="5_vogh0"]
+[ext_resource type="PackedScene" uid="uid://bxjyvmxp2qau5" path="res://ActUi.tscn" id="6_se3pw"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Map" type="Node2D"]
 script = ExtResource("1_j5vw8")
+enemyColor = Color(0.215686, 0.407843, 0.282353, 1)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_inqsk")
@@ -58,6 +60,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Control2" parent="CanvasLayer" instance=ExtResource("5_rd2iq")]
+
+[node name="ActUi" parent="CanvasLayer" instance=ExtResource("6_se3pw")]
+visible = false
 
 [node name="TurnSystem" type="Node" parent="."]
 script = ExtResource("5_vogh0")

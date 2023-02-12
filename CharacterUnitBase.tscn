@@ -8,11 +8,10 @@
 [ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
 [ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jlvmp"]
-radius = 67.1863
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2tao"]
+radius = 15.5563
 
-[node name="CharacterUnit" type="AnimatableBody2D"]
-input_pickable = true
+[node name="CharacterUnit" type="Area2D"]
 script = ExtResource("1_11rme")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -35,4 +34,4 @@ script = ExtResource("4_1xf7c")
 script = ExtResource("6_8nx5b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_jlvmp")
+shape = SubResource("CircleShape2D_t2tao")

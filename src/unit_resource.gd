@@ -19,4 +19,5 @@ class_name Unit
 @export var speedSkills:Dictionary = {40:90,30:80}
 @export var focusSkills:Dictionary = {80:30,40:80}
 @export var defenseSkills:Dictionary = {80:30,40:80}
+@export var movement:int = 5
 var genericSkills:Array[Dictionary] = [strengthSkills,speedSkills,focusSkills,defenseSkills]

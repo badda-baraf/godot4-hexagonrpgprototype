@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dippiv6ue1opk"]
+
+[ext_resource type="Script" path="res://src/SkillButton.gd" id="1_a8ddm"]
+
+[node name="SkillButton" type="Button"]
+offset_right = 58.0
+offset_bottom = 8.0
+script = ExtResource("1_a8ddm")

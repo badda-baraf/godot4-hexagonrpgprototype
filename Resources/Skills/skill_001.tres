@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://c8ijgukals0py"]
 
 [ext_resource type="Script" path="res://src/skill_resource.gd" id="1_pxxmv"]
 
@@ -8,4 +8,5 @@ id = 1
 chargeCost = 2
 name = "Black Ray"
 type = 0
-strength = 10
+strength = 12
+skillDescription = "Default Des"
