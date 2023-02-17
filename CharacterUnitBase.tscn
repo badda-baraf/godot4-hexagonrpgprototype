@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
 [ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t2tao"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnnc2"]
 radius = 15.5563
 
 [node name="CharacterUnit" type="Area2D"]
@@ -34,4 +34,4 @@ script = ExtResource("4_1xf7c")
 script = ExtResource("6_8nx5b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_t2tao")
+shape = SubResource("CircleShape2D_gnnc2")

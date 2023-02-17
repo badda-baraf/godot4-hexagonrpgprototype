@@ -20,9 +20,12 @@ signal selectedCharacter
 var registaredSkills = []
 var skillsPath = "res://Resources/Skills/"
 var skillResourceTemplate = "skill_%03d.tres"
+var currentCursor:Cursor
 var currentTilemap:TileMap
+var currentHighlightmap:TileMap
 var currentEnemiesNodes = []
 var currentPlayerNodes = []
+var astarGird:AStarGrid2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if activeUnits.is_empty():

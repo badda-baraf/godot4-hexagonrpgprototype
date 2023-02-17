@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc0ugo0inbpq0"]
+[gd_scene load_steps=4 format=3 uid="uid://bc0ugo0inbpq0"]
 
-[sub_resource type="Animation" id="Animation_0m2jj"]
+[ext_resource type="Script" path="res://src/TurnChangeAnimation.gd" id="1_8c7bw"]
+
+[sub_resource type="Animation" id="Animation_rfq1c"]
 resource_name = "turn_slide"
 length = 2.0
 tracks/0/type = "value"
@@ -18,40 +20,44 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k3u1s"]
 _data = {
-"turn_slide": SubResource("Animation_0m2jj")
+"turn_slide": SubResource("Animation_rfq1c")
 }
 
 [node name="TurnAnimation" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_8c7bw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = -4.65
 libraries = {
 "": SubResource("AnimationLibrary_k3u1s")
 }
 
 [node name="Sprite2D" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = 260.0
-offset_right = 1149.02
-offset_bottom = 358.0
-grow_horizontal = 2
+offset_left = 648.0
+offset_top = -64.0
+offset_right = 1797.02
+offset_bottom = 34.0
+grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Sprite2D"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 267.0
-offset_right = 1150.0
-offset_bottom = 355.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "INSERT TURN HERE"

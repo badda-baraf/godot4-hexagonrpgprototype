@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnu5mtdtixv2d"]
+[gd_scene load_steps=10 format=3 uid="uid://cnu5mtdtixv2d"]
 
 [ext_resource type="TileSet" uid="uid://dkdm6fpq3g2pj" path="res://tile_set.tres" id="1_inqsk"]
 [ext_resource type="Script" path="res://src/map_scene.gd" id="1_j5vw8"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://uptvhq8u4gi4" path="res://UnitDataUI.tscn" id="5_rd2iq"]
 [ext_resource type="Script" path="res://src/TurnSystem.gd" id="5_vogh0"]
 [ext_resource type="PackedScene" uid="uid://bxjyvmxp2qau5" path="res://ActUi.tscn" id="6_se3pw"]
+[ext_resource type="PackedScene" uid="uid://bc0ugo0inbpq0" path="res://TurnChangeAnimation.tscn" id="7_q4mjd"]
+[ext_resource type="TileSet" uid="uid://brj8ofa3anhg5" path="res://tile_set2.tres" id="8_j0st6"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_j5vw8")
@@ -64,5 +66,13 @@ vertical_alignment = 1
 [node name="ActUi" parent="CanvasLayer" instance=ExtResource("6_se3pw")]
 visible = false
 
+[node name="TurnAnimation" parent="CanvasLayer" instance=ExtResource("7_q4mjd")]
+
 [node name="TurnSystem" type="Node" parent="."]
 script = ExtResource("5_vogh0")
+
+[node name="HighlightTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("8_j0st6")
+format = 2
+
+[editable path="CanvasLayer/TurnAnimation"]

@@ -1,14 +1,13 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dkdm6fpq3g2pj"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://brj8ofa3anhg5"]
 
-[ext_resource type="Texture2D" uid="uid://hl5tvcxlguc3" path="res://HexTilesetv3.png" id="1_ngs1y"]
+[ext_resource type="Texture2D" uid="uid://nyc2n4in5sfi" path="res://HexTilesetv32.png" id="1_ijf85"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkyfj"]
-texture = ExtResource("1_ngs1y")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0a6t"]
+texture = ExtResource("1_ijf85")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
-1:0/next_alternative_id = 2
 1:0/0 = 0
-1:0/1 = 1
+1:0/0/modulate = Color(0.54902, 0, 0.505882, 0.521569)
 2:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
@@ -67,7 +66,6 @@ texture_region_size = Vector2i(32, 32)
 0:19/0 = 0
 1:19/0 = 0
 2:19/0 = 0
-0:20/0 = 0
 1:20/0 = 0
 2:20/0 = 0
 0:21/0 = 0
@@ -76,11 +74,9 @@ texture_region_size = Vector2i(32, 32)
 0:22/0 = 0
 1:22/0 = 0
 2:22/0 = 0
-1:23/0 = 0
-2:23/0 = 0
 
 [resource]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_qkyfj")
+sources/2 = SubResource("TileSetAtlasSource_w0a6t")

@@ -8,7 +8,18 @@ var playerParent
 @onready var winScreen = preload("res://Win.tscn")
 @onready var loseScreen = preload("res://Lose.tscn")
 @onready var actUi = load("res://ActUi.tscn")
+var enemies 
+var players 
+var manuallyEnded = false
+var lastPosition
+var lastSelectedUnit:CharacterUnit
 func _input(event):
+	if event.is_action_pressed("end"):
+		manuallyEnded = true
+#		await skip_turn()
+#		next_turn()
+	if event.is_action_pressed("cancel"):
+		await cancel()
 	if event.is_action_pressed("wait"):
 		await wait()
 		Game.finishedAction.emit()
@@ -22,9 +33,40 @@ func _input(event):
 		await defend()
 		Game.finishedAction.emit()
 		check_turn()
-	check_turn()
+	if event.is_action_pressed("move"):
+			if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+				await move()
+				Game.finishedAction.emit()
+				check_turn()
 
 
+func skip_turn():
+	pass
+
+func cancel():
+	if  $"../CanvasLayer/ActUi".is_visible_in_tree():
+		$"../CanvasLayer/ActUi".hide()
+	if !lastPosition == null and  !lastSelectedUnit == null:
+		lastSelectedUnit.position = lastPosition
+		lastSelectedUnit.dehighlight_tiles()
+		lastSelectedUnit.acted = false
+
+func move():
+	var subject:CharacterUnit = Game.focusedCharacter
+	lastSelectedUnit = subject
+	lastPosition = subject.position
+	subject.highlight_tiles()
+	var tiles = subject.get_traversible_tiles(subject.position)
+	while(true):
+		await Game.currentCursor.selectedTile
+		if !Game.currentCursor.is_focused_on_unit() and Game.currentTilemap.local_to_map(Game.currentCursor.position) in tiles:
+			subject.dehighlight_tiles()
+			subject.position = Game.currentCursor.position
+			subject.acted = true
+			break
+		else:
+			print_debug("unit is here")
+	
 
 
 func wait():
@@ -53,9 +95,9 @@ func set_turn(value:TURN):
 
 
 func switch_turn():
-	
 	match get_turn():
 		TURN.PLAYER:
+			
 			set_turn(TURN.ENEMY)
 		TURN.ENEMY:
 			
@@ -76,11 +118,16 @@ func player_turn():
 		i.acted = false
 	for i in get_parent().get_node("players").get_children():
 #		i.acted = false
+		if manuallyEnded == true:
+			break
+#			next_turn()
 		await Game.finishedAction
 		Game.selectedUnit = null
 	next_turn()
 
 func next_turn():
+	print_debug("next turn")
+	manuallyEnded = false
 	await switch_turn()
 	await check_turn()
 	run_turn()
@@ -88,9 +135,11 @@ func next_turn():
 
 func all_defeated(array):
 	var allDefeated = true
+	var defeated = []
 	for i in array:
 		if i.unitObject.defeated == false:
 			allDefeated = false
+			defeated.append(i)
 			return false
 	return allDefeated
 

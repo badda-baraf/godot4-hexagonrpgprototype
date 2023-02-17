@@ -1,6 +1,9 @@
 extends Node2D
 
 @onready var tileMap:TileMap = $TileMap
+@onready var highlightMap = $HighlightTileMap
+
+
 @onready var cursor:Cursor = $Cursor
 enum MODE {EXPLORE,FIGHT}
 @export var mode = MODE.FIGHT
@@ -8,6 +11,7 @@ var unitScene = preload("res://CharacterUnitBase.tscn")
 
 @export var enemyData = [{"res://Resources/Units/test_unit4.tres":"res://Resources/test_equip.tres"},{"res://Resources/Units/test_unit5.tres":"res://Resources/test_equip.tres"},{"res://Resources/Units/test_unit6.tres":"res://Resources/test_equip.tres"}]
 @export var enemies = {Vector2i(14,2):enemyData[0],Vector2i(4,5):enemyData[1],Vector2i(10,7):enemyData[2]}
+@export var enemiesJson:String = "res://enemyPlacements.json"
 @onready var turnSystem = $TurnSystem
 @export var enemyColor:Color
 func get_mode():
@@ -15,15 +19,33 @@ func get_mode():
 
 
 func _ready():
+	print_debug(enemiesJson)
+	if FileAccess.file_exists(enemiesJson):
+		print_debug(enemiesJson)
+		var file = FileAccess.open(enemiesJson,FileAccess.READ)
+		print_debug(file)
+		var content = file.get_as_text()
+		var contentLines = content.split("\n")
+		for i in contentLines:
+			i.strip_escapes()
+			var dict = JSON.parse_string(i)
+			print_debug(dict)
+		print_debug(contentLines)
+
 	$CanvasLayer/Control2.hide()
 	print_debug("tilemap size is:" + str(tileMap))
 	Game.currentTilemap = tileMap
+	Game.currentHighlightmap = highlightMap
+	Game.currentCursor = cursor
 	match(get_mode()):
 		MODE.EXPLORE:
 			prepare_explore()
 		MODE.FIGHT:
 			await prepare_fight()
 			turnSystem.run_turn()
+
+
+
 
 func prepare_fight():
 	#get starting placement layer tiles,put them in array. and then hide them
