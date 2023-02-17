@@ -9,7 +9,7 @@ var acted = false
 var defeated = false
 var defaultState
 var skillIds = []
-
+var agrrod:bool = true
 func _ready():
 	print_debug(get_unlocked_skills_ids())
 	print_debug(is_valid_weilder())
@@ -31,6 +31,9 @@ func run_ai():
 
 
 func defend_state():
+	if agrrod:
+		ai.pop_state()
+		ai.push_state(attack_state())
 	unitObject.currentDefense = unitObject.get_defense() + 5
 	if unitObject.currentStamina >= 50:
 		ai.pop_state()
@@ -50,17 +53,11 @@ func attack_state():
 	#find tile its occupying and its surronding 
 	var allies = []
 	if get_traversible_units(position).is_empty():
-		print_debug("Moving to closest")
-		var units:Dictionary = get_path_until_unit_offensive_dict()
-		print_debug(units)
-		if !units.is_empty():
-			print_debug("can move")
-			var unitPoints = units.values()
-			unitPoints.sort_custom(func(a, b): return a[0] < b[0])
-			print_debug(unitPoints)
-			var points = get_path_to_unit(units.find_key(unitPoints[0]))
-			print_debug(" to get to the closest unit", str(self), "will go to cord: ", points[-1] , "at real: ", Game.currentTilemap.map_to_local(points[-1]))
-			position = Game.currentTilemap.map_to_local(points[0])
+		if agrrod:
+			move_farthest()
+
+		else:
+			ai.push_state(defend_state())
 	else:
 		var targetData = get_closest_unit_and_position()
 		if !targetData.is_empty():
@@ -71,23 +68,35 @@ func attack_state():
 			Game.cast_skill_from_ai(bestSkill,self,targets)
 
 func move_farthest():
-	for i in range(unitObject.unitResource.movement):
-		var startingCenter = Vector2i(position.x+1,position.y+1)
-		var rectRange = Rect2i(startingCenter,Vector2i(unitObject.unitResource.movement,unitObject.unitResource.movement))
-	var newPosition = Vector2i(position.x +1 ,position.y + 1)
-	position = Game.currentTilemap.local_to_map(newPosition)
-
-func get_path_until_unit_offensive_dict():
-	var startingPosition:Vector2 = position
-	var units = {}
-	var index = 1
-	while units.is_empty():
-		startingPosition = Vector2(startingPosition.x + index,startingPosition.y +index)
-		units = get_traversible_units(startingPosition)
-		print_debug(units)
-		index+=1
+	var movement = unitObject.unitResource.movement
+	var tilePos = Game.currentTilemap.local_to_map(position)
+	var newPosition = Vector2i(tilePos.x +1 ,tilePos.y + 1)
 	
-	return units
+	position = Game.currentTilemap.map_to_local(newPosition)
+
+func move_to_closest_unit():
+		var units = get_traversible_units(position)
+		print_debug("can move")
+		var unitPoints = units.values()
+		unitPoints.sort_custom(func(a, b): return a[0] < b[0])
+		print_debug(unitPoints)
+		var points = get_path_to_unit(units.find_key(unitPoints[0]))
+		print_debug(" to get to the closest unit", str(self), "will go to cord: ", points[-1] , "at real: ", Game.currentTilemap.map_to_local(points[-1]))
+		position = Game.currentTilemap.map_to_local(points[0])
+
+#func get_path_until_unit_offensive_dict():
+#	var startingPosition:Vector2 = position
+#	var units = {}
+#	var index = 1
+#
+#	if units.is_empty():
+#		startingPosition = Vector2(startingPosition.x + index,startingPosition.y +index)
+#		while units.is_empty():
+#			units = get_traversible_units(startingPosition)
+#		print_debug(units)
+#		index+=1
+#
+#	return units
 
 func get_path_until_unit_support():
 	pass
@@ -137,9 +146,10 @@ func get_traversible_units(startingPos):
 	var allUnits = Game.currentEnemiesNodes + Game.currentPlayerNodes
 	if !trav.is_empty():
 		for i in allUnits:
-			var unitPos = Game.currentTilemap.local_to_map(i.position)
-			if unitPos in trav:
-				dict[i] = unitPos
+			if i != self:
+				var unitPos = Game.currentTilemap.local_to_map(i.position)
+				if unitPos in trav:
+					dict[i] = unitPos
 #	print_debug(dict)
 	return dict
 
@@ -159,17 +169,18 @@ func get_path_to_unit(unit:CharacterUnit):
 	return astar.get_id_path(Game.currentTilemap.local_to_map(position),Game.currentTilemap.local_to_map(unit.position))
 
 func get_closest_unit_and_position():
-#	var dict = get_traversible_units(position)
-	var dict = get_path_until_unit_offensive_dict()
+	var dict = get_traversible_units(position)
+#	var dict = get_path_until_unit_offensive_dict()
 	var newDict = {}
 #	for i in get_traversible_units(position):
 	for i in dict:
-		var vec = Vector2(dict[i]) 
-		var distance = vec.distance_squared_to(position)
-		newDict[i] = dict[i]
-		if newDict[i] is float and distance < newDict[i]:
-			newDict.clear()
+		if i != self:
+			var vec = Vector2(dict[i]) 
+			var distance = vec.distance_squared_to(position)
 			newDict[i] = dict[i]
+			if newDict[i] is float and distance < newDict[i]:
+				newDict.clear()
+				newDict[i] = dict[i]
 #	print_debug(newDict)
 	return newDict
 
@@ -199,8 +210,10 @@ func get_traversible_tiles(startingPos):
 	if !Game.currentTilemap == null:
 		var currentTilePos = Game.currentTilemap.local_to_map(startingPos)
 		for i in range(unitObject.get_unit_resource().movement):
-			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x + i,currentTilePos.y + i)))
-			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x - i,currentTilePos.y - i)))
+			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x + i,currentTilePos.y)))
+			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x - i,currentTilePos.y)))
+			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x,currentTilePos.y - i)))
+			tiles.append_array(Game.currentTilemap.get_surrounding_cells(Vector2i(currentTilePos.x,currentTilePos.y + i)))
 #	print_debug(tiles)
 	return tiles
 
@@ -213,6 +226,7 @@ func support_state():
 func on_hover(body:Node2D):
 	if body is Cursor:
 		Game.focusedCharacter = self
+		highlight_tiles()
 		if unitObject.get_unit_resource() in Game.activeUnitsResouces.keys():
 			print_debug("acted status is ", acted)
 	#	Game.focusedEquip = equipableObject
@@ -220,6 +234,7 @@ func on_hover(body:Node2D):
 
 
 func on_hover_exited(body:Node2D):
+	dehighlight_tiles()
 	Game.hide_ui.emit()
 	Game.focusedCharacter = null
 #	Game.focusedEquip = null
