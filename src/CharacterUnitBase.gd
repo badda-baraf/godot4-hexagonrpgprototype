@@ -10,7 +10,7 @@ var defeated = false
 var defaultState
 var skillIds = []
 var agrrod:bool = true
-func _ready():
+func _ready():	
 	print_debug(get_unlocked_skills_ids())
 	print_debug(is_valid_weilder())
 	body_entered.connect(on_hover)
@@ -54,12 +54,13 @@ func attack_state():
 	var allies = []
 	if get_traversible_units(position).is_empty():
 		if agrrod:
-			move_farthest()
+			move_until_unit()
+#			auto_move()
 
 		else:
 			ai.push_state(defend_state())
 	else:
-		var targetData = get_closest_unit_and_position()
+		var targetData = get_closest_unit_and_position_from_given_position(position)
 		if !targetData.is_empty():
 			var target = targetData.keys()[0]
 			var targetPos = targetData.values()[0]
@@ -67,12 +68,58 @@ func attack_state():
 			var targets = targetData.keys()
 			Game.cast_skill_from_ai(bestSkill,self,targets)
 
-func move_farthest():
+func auto_move():
 	var movement = unitObject.unitResource.movement
 	var tilePos = Game.currentTilemap.local_to_map(position)
 	var newPosition = Vector2i(tilePos.x +1 ,tilePos.y + 1)
 	
 	position = Game.currentTilemap.map_to_local(newPosition)
+
+func move_to_target(pos):
+	# later put a star for getting animation points
+	
+	var newPositionTileTarget =  Game.currentTilemap.local_to_map(pos)
+	newPositionTileTarget = Vector2i()
+	
+	position = Game.currentTilemap.map_to_local(newPositionTileTarget)
+	pass
+
+
+func move_until_unit():
+	if self in Game.currentEnemiesNodes:
+		var playerUnits:Array = Game.currentPlayerNodes
+		var closestUnit:CharacterUnit
+		var closestTile:Vector2
+		var tilePosition:Vector2 = Vector2(Game.currentTilemap.local_to_map(position))
+		for i in playerUnits:
+			var unitPositionTile:Vector2 = Vector2(Game.currentTilemap.local_to_map(i.position))
+			if closestUnit == null:
+				closestUnit = i
+				closestTile = Vector2(Game.currentTilemap.local_to_map(closestUnit.position))
+			else:
+				if tilePosition.distance_squared_to(unitPositionTile) > tilePosition.distance_squared_to(closestTile):
+					closestUnit = i
+					closestTile = Vector2(Game.currentTilemap.local_to_map(closestUnit.position))
+		print_debug(closestTile,closestUnit)
+#		if closestTile in get_traversible_tiles(position):
+		if closestTile:
+			var tiles = Game.currentTilemap.get_surrounding_cells(closestTile)
+			print_debug(tiles)
+			var targetPos 
+			for i in tiles:
+				var totalUnits = Game.currentEnemiesNodes + Game.currentPlayerNodes
+				for z in totalUnits:
+#					if Game.currentTilemap.map_to_local(i) != z.position:
+					if i == Game.currentTilemap.local_to_map(z.position):
+						print_debug("faliure")
+#					if i != Game.currentTilemap.local_to_map(z.position):
+					else:
+						targetPos = i
+						print_debug(targetPos)
+						position = Game.currentTilemap.map_to_local(targetPos)
+						break
+	get_closest_unit_and_position_from_given_position(position)
+
 
 func move_to_closest_unit():
 		var units = get_traversible_units(position)
@@ -84,22 +131,6 @@ func move_to_closest_unit():
 		print_debug(" to get to the closest unit", str(self), "will go to cord: ", points[-1] , "at real: ", Game.currentTilemap.map_to_local(points[-1]))
 		position = Game.currentTilemap.map_to_local(points[0])
 
-#func get_path_until_unit_offensive_dict():
-#	var startingPosition:Vector2 = position
-#	var units = {}
-#	var index = 1
-#
-#	if units.is_empty():
-#		startingPosition = Vector2(startingPosition.x + index,startingPosition.y +index)
-#		while units.is_empty():
-#			units = get_traversible_units(startingPosition)
-#		print_debug(units)
-#		index+=1
-#
-#	return units
-
-func get_path_until_unit_support():
-	pass
 
 
 func get_path_to_position(pos:Vector2i):
@@ -113,7 +144,7 @@ func get_path_to_position(pos:Vector2i):
 
 func get_best_skill() -> Skill:
 	var s:Skill = Game.get_skill_by_id(skillIds[0])
-	var closesUnitDict = get_closest_unit_and_position()
+	var closesUnitDict = get_closest_unit_and_position_from_given_position(position)
 	var farthestUnitDict = get_farthest_unit_and_position()
 	for i in skillIds:
 		var potentialSkill = Game.get_skill_by_id(i)
@@ -168,15 +199,15 @@ func get_path_to_unit(unit:CharacterUnit):
 	astar.update()
 	return astar.get_id_path(Game.currentTilemap.local_to_map(position),Game.currentTilemap.local_to_map(unit.position))
 
-func get_closest_unit_and_position():
-	var dict = get_traversible_units(position)
+func get_closest_unit_and_position_from_given_position(pos):
+	var dict = get_traversible_units(pos)
 #	var dict = get_path_until_unit_offensive_dict()
 	var newDict = {}
 #	for i in get_traversible_units(position):
 	for i in dict:
 		if i != self:
 			var vec = Vector2(dict[i]) 
-			var distance = vec.distance_squared_to(position)
+			var distance = vec.distance_squared_to(pos)
 			newDict[i] = dict[i]
 			if newDict[i] is float and distance < newDict[i]:
 				newDict.clear()
