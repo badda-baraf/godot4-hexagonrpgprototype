@@ -48,19 +48,23 @@ func get_unlocked_skills_ids():
 	if !strengthSkills.is_empty():
 		for i in strengthSkills:
 			if unit.strength >= i:
-				skills.append(strengthSkills[i])
+				if i not in skills:
+					skills.append(strengthSkills[i])
 	if !speedSkills.is_empty():
 		for i in speedSkills:
 			if unit.speed >= i:
-				skills.append(speedSkills[i])
+				if i not in skills:
+					skills.append(speedSkills[i])
 	if !focusSkills.is_empty():
 		for i in focusSkills:
 			if unit.focus >= i:
-				skills.append(focusSkills[i])
+				if i not in skills:
+					skills.append(focusSkills[i])
 	if !defenseSkills.is_empty():
 		for i in defenseSkills:
 			if unit.defense >= i:
-				skills.append(defenseSkills[i])
+				if i not in skills:
+					skills.append(defenseSkills[i])
 	skills.append_array(unit.personalSkills)
 	
 	return skills

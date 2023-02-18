@@ -109,6 +109,7 @@ func move_until_unit():
 			for i in tiles:
 				var totalUnits = Game.currentEnemiesNodes + Game.currentPlayerNodes
 				for z in totalUnits:
+					print_debug(i,z.position)
 #					if Game.currentTilemap.map_to_local(i) != z.position:
 					if i == Game.currentTilemap.local_to_map(z.position):
 						print_debug("faliure")
