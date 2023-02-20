@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Equipable" load_steps=2 format=3 uid="uid://dsk6qigjd3c0"]
+
+[ext_resource type="Script" path="res://src/equipable_unit_resource.gd" id="1_gkvt8"]
+
+[resource]
+script = ExtResource("1_gkvt8")
+equipableIds = null
+benifitIds = null
+unitName = "Heck yeah"
+id = 1
+stamina = 15
+strength = 5
+defense = 3
+speed = 2
+focus = 3
+startingSpec = 10
+personalSkills = [0]
+strengthSkills = {
+1: 30,
+30: 80
+}
+speedSkills = {
+0: 0
+}
+focusSkills = {
+0: 0
+}
+defenseSkills = {
+0: 0
+}
+movement = 5

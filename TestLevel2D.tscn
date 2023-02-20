@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnu5mtdtixv2d"]
+[gd_scene load_steps=12 format=3 uid="uid://cnu5mtdtixv2d"]
 
 [ext_resource type="TileSet" uid="uid://dkdm6fpq3g2pj" path="res://tile_set.tres" id="1_inqsk"]
 [ext_resource type="Script" path="res://src/map_scene.gd" id="1_j5vw8"]
@@ -9,6 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://bxjyvmxp2qau5" path="res://ActUi.tscn" id="6_se3pw"]
 [ext_resource type="PackedScene" uid="uid://bc0ugo0inbpq0" path="res://TurnChangeAnimation.tscn" id="7_q4mjd"]
 [ext_resource type="TileSet" uid="uid://brj8ofa3anhg5" path="res://tile_set2.tres" id="8_j0st6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j70wp"]
+size = Vector2(17, 1257)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10vho"]
+size = Vector2(17, 1257)
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_j5vw8")
@@ -32,8 +38,6 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(917525, 0, 1, 983061, 0, 1, 917526, 0, 1, 983062, 0, 1, 917527, 0, 1, 983063, 0, 1, 917528, 0, 1, 983064, 0, 1, 983059, 0, 1, 917529, 0, 1, 852000, 0, 1, 917536, 0, 1, 983072, 0, 1, 1048608, 0, 1, 1114144, 0, 1, 1179680, 0, 1, 1245216, 0, 1, 852001, 0, 1, 917537, 0, 1, 983073, 0, 1, 1048609, 0, 1, 1114145, 0, 1, 1179681, 0, 1, 1245217, 0, 1, 852002, 0, 1, 917538, 0, 1, 983074, 0, 1, 1048610, 0, 1, 1114146, 0, 1, 1179682, 0, 1, 1245218, 0, 1, 852003, 0, 1, 917539, 0, 1, 983075, 0, 1, 1048611, 0, 1, 1114147, 0, 1, 1179683, 0, 1, 1245219, 0, 1, 852004, 0, 1, 917540, 0, 1, 983076, 0, 1, 1048612, 0, 1, 1114148, 0, 1, 1179684, 0, 1, 1245220, 0, 1, 852005, 0, 1, 917541, 0, 1, 983077, 0, 1, 1048613, 0, 1, 1114149, 0, 1, 1179685, 0, 1, 1245221, 0, 1, 852006, 0, 1, 917542, 0, 1, 983078, 0, 1, 1048614, 0, 1, 1114150, 0, 1, 1179686, 0, 1, 1245222, 0, 1, 852007, 0, 1, 917543, 0, 1, 983079, 0, 1, 1048615, 0, 1, 1114151, 0, 1, 1179687, 0, 1, 1245223, 0, 1, 196631, 0, 1, 196625, 0, 1, 262161, 0, 1, 327697, 0, 1, 393233, 0, 1, 458769, 0, 1, 196626, 0, 1, 262162, 0, 1, 327698, 0, 1, 393234, 0, 1, 458770, 0, 1, 196627, 0, 1, 262163, 0, 1, 327699, 0, 1, 393235, 0, 1, 458771, 0, 1, 196628, 0, 1, 262164, 0, 1, 327700, 0, 1, 393236, 0, 1, 458772, 0, 1, 196629, 0, 1, 262165, 0, 1, 327701, 0, 1, 393237, 0, 1, 458773, 0, 1, 196630, 0, 1, 262166, 0, 1, 327702, 0, 1, 393238, 0, 1, 458774, 0, 1, 262167, 0, 1, 327703, 0, 1, 393239, 0, 1, 458775, 0, 1, 196632, 0, 1, 262168, 0, 1, 327704, 0, 1, 393240, 0, 1, 458776, 0, 1, 196642, 0, 1, 262178, 0, 1, 196643, 0, 1, 262179, 0, 1, 196644, 0, 1, 262180, 0, 1, 196645, 0, 1, 262181, 0, 1, 196646, 0, 1, 262182, 0, 1, 196647, 0, 1, 262183, 0, 1, 851980, 0, 1, 655367, 0, 1, 589826, 0, 1, 589827, 0, 1, 589828, 0, 1, 589829, 0, 1, 1114111, 0, 1, 1179647, 0, 1, 1048576, 0, 1, 1114112, 0, 1, 1048577, 0, 1, 1114113, 0, 1, 524330, 0, 1, 524331, 0, 1, 524332, 0, 1, 524333, 0, 1, 327725, 0, 1, 327726, 0, 1, 327727, 0, 1, 327728, 0, 1, 327729, 0, 1, 852011, 0, 1, 852012, 0, 1, 852013, 0, 1, 852014, 0, 1, 852015, 0, 1)
-
-[node name="Node" type="Node" parent="."]
 
 [node name="players" type="Node2D" parent="."]
 
@@ -74,5 +78,37 @@ script = ExtResource("5_vogh0")
 [node name="HighlightTileMap" type="TileMap" parent="."]
 tile_set = ExtResource("8_j0st6")
 format = 2
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(-4, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(-27.5, 328)
+shape = SubResource("RectangleShape2D_j70wp")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Walls"]
+position = Vector2(1271, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D4"]
+position = Vector2(-27.5, 328)
+shape = SubResource("RectangleShape2D_j70wp")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+position = Vector2(9, -66)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+position = Vector2(-27.5, 595.5)
+shape = SubResource("RectangleShape2D_10vho")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Walls"]
+position = Vector2(9, 668)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
+position = Vector2(-27.5, 595.5)
+shape = SubResource("RectangleShape2D_10vho")
 
 [editable path="CanvasLayer/TurnAnimation"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxjyvmxp2qau5"]
+[gd_scene load_steps=3 format=3 uid="uid://bxjyvmxp2qau5"]
 
 [ext_resource type="Script" path="res://src/ActUi.gd" id="1_0pj7q"]
+[ext_resource type="Texture2D" uid="uid://cby24m63ucdpk" path="res://menu_box_texture.png" id="2_ia4ke"]
 
 [node name="ActUi" type="Control"]
 layout_mode = 3
@@ -18,7 +19,7 @@ size_flags_horizontal = 8
 mouse_filter = 2
 script = ExtResource("1_0pj7q")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,9 +27,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+texture = ExtResource("2_ia4ke")
 
 [node name="SkillList3" type="ItemList" parent="PanelContainer"]
-visible = false
 layout_mode = 2
 allow_reselect = true
 text_overrun_behavior = 0
@@ -39,6 +40,8 @@ item_1/text = "ww"
 
 [node name="SkillList" type="ScrollContainer" parent="PanelContainer"]
 layout_mode = 2
+offset_right = 336.0
+offset_bottom = 388.0
 follow_focus = true
 horizontal_scroll_mode = 0
 

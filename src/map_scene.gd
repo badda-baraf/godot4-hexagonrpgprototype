@@ -11,9 +11,11 @@ var unitScene = preload("res://CharacterUnitBase.tscn")
 
 @export var enemyData = [{"res://Resources/Units/test_unit4.tres":"res://Resources/test_equip.tres"},{"res://Resources/Units/test_unit5.tres":"res://Resources/test_equip.tres"},{"res://Resources/Units/test_unit6.tres":"res://Resources/test_equip.tres"}]
 @export var enemies = {Vector2i(14,2):enemyData[0],Vector2i(4,5):enemyData[1],Vector2i(10,7):enemyData[2]}
-@export var enemiesJson:String = "res://enemyPlacements.json"
+@export var enemiesJson:String = "res://prototype_level_data_placements.json"
+@export var enemiesJ:JSON
 @onready var turnSystem = $TurnSystem
 @export var enemyColor:Color
+var enemyDict = {}
 func get_mode():
 	return mode
 
@@ -21,16 +23,8 @@ func get_mode():
 func _ready():
 	print_debug(enemiesJson)
 	if FileAccess.file_exists(enemiesJson):
-		print_debug(enemiesJson)
-		var file = FileAccess.open(enemiesJson,FileAccess.READ)
-		print_debug(file)
-		var content = file.get_as_text()
-		var contentLines = content.split("\n")
-		for i in contentLines:
-			i.strip_escapes()
-			var dict = JSON.parse_string(i)
-			print_debug(dict)
-		print_debug(contentLines)
+		load_data_from_json(enemiesJson)
+
 
 	$CanvasLayer/Control2.hide()
 	print_debug("tilemap size is:" + str(tileMap))
@@ -45,28 +39,43 @@ func _ready():
 			turnSystem.run_turn()
 
 
+func load_data_from_json(f):
+	var file = FileAccess.open(f,FileAccess.READ)
+	print_debug(file)
+	var json = JSON.new()
+	
+	var content = json.parse_string(file.get_as_text())
+	enemyDict = content
+
 
 
 func prepare_fight():
 	#get starting placement layer tiles,put them in array. and then hide them
 	tileMap.get_used_cells(4)
 	
-	for i in enemies:
+	for enemy in enemyDict["enemies"]:
+		print_debug(enemy)
 		var newUnit = unitScene.instantiate()
 		$enemies.add_child(newUnit)
-		newUnit.position = tileMap.map_to_local(i)
-		var enemyDict = enemies[i]
-		print_debug(enemyDict)
-		newUnit.unitObject.unitResource = load(enemyDict.keys()[0])
-		newUnit.equipableObject.unitResource = load(enemyDict.values()[0])
-		newUnit.modulate = enemyColor
+		newUnit.position = tileMap.map_to_local(Vector2i(enemy["x"],enemy["y"]))
+		newUnit.unitObject.unitResource = load(enemy["unit"])
+		newUnit.equipableObject.unitResource = load(enemy["equip"])
+	
+#	for i in enemies:
+#		var newUnit = unitScene.instantiate()
+#		$enemies.add_child(newUnit)
+#		newUnit.position = tileMap.map_to_local(i)
+#		var enemyDict = enemies[i]
+#		print_debug(enemyDict)
+#		newUnit.unitObject.unitResource = load(enemyDict.keys()[0])
+#		newUnit.equipableObject.unitResource = load(enemyDict.values()[0])
+#		newUnit.modulate = enemyColor
 
 	var resourcesDict:Dictionary = Game.activeUnitsResouces
 	var resourcesKeys = resourcesDict.keys()
 	var resourceValues = resourcesDict.values()
 	var index = 0
 	while index != resourcesKeys.size():
-
 		print_debug("place so and so")
 		await cursor.selectedTile
 		if !cursor.is_focused_on_unit():

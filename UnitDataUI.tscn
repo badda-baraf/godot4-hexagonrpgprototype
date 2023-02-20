@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://uptvhq8u4gi4"]
+[gd_scene load_steps=3 format=3 uid="uid://uptvhq8u4gi4"]
 
 [ext_resource type="Script" path="res://src/UnitDataUI.gd" id="1_4u756"]
+[ext_resource type="Texture2D" uid="uid://cby24m63ucdpk" path="res://menu_box_texture.png" id="2_l6fc0"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -16,16 +17,32 @@ grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_4u756")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="NinePatchRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = -0.079
+anchor_top = -0.361
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -0.0319977
+offset_top = -0.0739937
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_l6fc0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041
+anchor_top = 0.172
+anchor_right = 0.96
+anchor_bottom = 0.818
+offset_left = -1.343
+offset_top = -5.872
+offset_right = -1.08002
+offset_bottom = 24.132
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

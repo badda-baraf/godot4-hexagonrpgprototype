@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://cc6cug7wo66rk"]
+
+[ext_resource type="Script" path="res://src/unit_resource.gd" id="1_sxfw7"]
+
+[resource]
+script = ExtResource("1_sxfw7")
+unitName = "A Skilled Skill"
+id = 0
+stamina = 15
+strength = 5
+defense = 3
+speed = 2
+focus = 3
+startingSpec = 10
+personalSkills = []
+strengthSkills = {
+1: 30,
+30: 80
+}
+speedSkills = {
+30: 80,
+40: 90
+}
+focusSkills = {
+40: 80,
+80: 30
+}
+defenseSkills = {
+40: 80,
+80: 30
+}
+movement = 5

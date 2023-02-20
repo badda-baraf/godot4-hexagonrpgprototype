@@ -1,5 +1,15 @@
 {
-	{4:6}:{res://Resources/Units/test_unit4.tres:res://Resources/test_equip.tres},
-	{11:6}:{res://Resources/Units/test_unit4.tres:res://Resources/test_equip.tres}
+	"enemies":
+		[
+			{4:6}:{"res://Resources/Units/test_unit4.tres":"res://Resources/test_equip.tres"},
+			{11:6}:{"res://Resources/Units/test_unit4.tres":"res://Resources/test_equip.tres"}
+		],
+		"items":
+			[]
+				
+				
+			
+		"events": []
+
 }
 
