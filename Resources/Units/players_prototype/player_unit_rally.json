@@ -1,0 +1,31 @@
+{
+	
+	"base_stats":
+		{
+			"stamina":100,
+			"strength":5,
+			"defense":1,
+			"speed":6,
+			"focus":10,
+			
+		},
+		"stat_caps":
+			{
+				"strength":5,
+				"defense":2,
+				"speed":6,
+				"focus":10,
+			},
+	"personalSkills":
+		[
+			{
+				"level":50,
+				"skill":""
+			},
+			{"level":0,
+			"skill":""
+			}
+		]
+	
+	
+}

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://td6qm3d3cn6"]
+
+[ext_resource type="Script" path="res://src/skill_resource.gd" id="1_0vjir"]
+
+[resource]
+script = ExtResource("1_0vjir")
+name = "Focus on the Rally "
+type = 2
+effect = 0
+statTargets = [0, 4]
+costType = 1
+strength = 1
+chargeCost = 10
+range = 4
+maxTargets = 3
+skillDescription = "Adds +1 to Focus as well as healing some stamina for allies equips."

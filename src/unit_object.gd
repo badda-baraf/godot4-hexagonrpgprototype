@@ -20,6 +20,9 @@ func _ready():
 	set_current_stats_to_resource()
 
 
+func level_up():
+	pass
+
 func set_current_stats_to_resource():
 	maxStamina = get_stamina()
 	currentStamina = maxStamina

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://bieef2ut26lww"]
+
+[ext_resource type="Script" path="res://src/skill_resource.gd" id="1_qyc4n"]
+
+[resource]
+script = ExtResource("1_qyc4n")
+name = "skill name"
+type = 2
+effect = 1
+statTargets = [0]
+costType = 0
+strength = 10
+chargeCost = 2
+range = 1
+maxTargets = 1
+skillDescription = "Default Description"
