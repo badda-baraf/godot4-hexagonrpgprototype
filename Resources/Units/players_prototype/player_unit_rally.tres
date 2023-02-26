@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=3 format=3 uid="uid://ca7ers54nwycm"]
+[gd_resource type="Resource" script_class="Unit" load_steps=3 format=3 uid="uid://ceko6rl21dfe"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_hv2pg"]
 [ext_resource type="Resource" uid="uid://b5tn4oxw6rw52" path="res://Resources/Skills/skill_030.tres" id="1_js83i"]
 
 [resource]
 script = ExtResource("1_hv2pg")
-unitName = ""
+unitName = "The ally who rally among us"
+unitSpritePath = "res://assets/Rallysprite.png"
 id = 0
 stamina = 15
 strength = 5

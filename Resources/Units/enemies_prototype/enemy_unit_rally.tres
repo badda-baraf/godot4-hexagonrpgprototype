@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://dsk2d54r8yrjy"]
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://csv8sknmh1iqx"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_ush2d"]
 
 [resource]
 script = ExtResource("1_ush2d")
 unitName = "Rally Dallying"
+unitSpritePath = "res://assets/Rallysprite.png"
 id = 0
 stamina = 15
 strength = 5

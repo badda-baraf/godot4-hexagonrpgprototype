@@ -44,7 +44,6 @@ layer_2/tile_data = PackedInt32Array(917525, 0, 1, 983061, 0, 1, 917526, 0, 1, 9
 [node name="Cursor" parent="." instance=ExtResource("3_3ec7p")]
 z_index = 2
 position = Vector2(30, 629)
-input_pickable = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -71,7 +70,7 @@ text = "Vector,Tile
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control2" parent="CanvasLayer" instance=ExtResource("5_gy3yu")]
+[node name="UnitData" parent="CanvasLayer" instance=ExtResource("5_gy3yu")]
 
 [node name="ActUi" parent="CanvasLayer" instance=ExtResource("6_l61ov")]
 visible = false
@@ -87,4 +86,5 @@ format = 2
 
 [node name="Node2D" type="Node2D" parent="."]
 
+[editable path="Cursor"]
 [editable path="CanvasLayer/TurnAnimation"]

@@ -1,20 +1,23 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxmfdadur3k3"]
 
 [ext_resource type="Script" path="res://src/Cursor.gd" id="1_bdqat"]
-[ext_resource type="Texture2D" uid="uid://b3iyde3111y2" path="res://icon.svg" id="2_irs38"]
+[ext_resource type="Texture2D" uid="uid://b2kc2dqm5qh7o" path="res://assets/hex_tiles_blank.png" id="2_ft8dt"]
+[ext_resource type="PackedScene" uid="uid://uujvvuyuv800" path="res://hex_collison_shape.tscn" id="3_jj1g2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs8xy"]
-
-[node name="Cursor" type="CharacterBody2D"]
+[node name="Cursor" type="Area2D"]
 script = ExtResource("1_bdqat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_irs38")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gs8xy")
+scale = Vector2(10, 10)
+texture = ExtResource("2_ft8dt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(0.2, 0.2)
+
+[node name="HexCollisonShape" parent="." instance=ExtResource("3_jj1g2")]
+scale = Vector2(10, 10)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 26)
+collide_with_bodies = false

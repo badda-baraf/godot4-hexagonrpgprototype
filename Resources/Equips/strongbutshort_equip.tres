@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="Equipable" load_steps=2 format=3 uid="uid://eih674jq4xp2"]
+[gd_resource type="Resource" script_class="Equipable" load_steps=3 format=3 uid="uid://eih674jq4xp2"]
 
 [ext_resource type="Script" path="res://src/equipable_unit_resource.gd" id="1_akq2m"]
+[ext_resource type="Texture2D" uid="uid://bog5huvj27bbo" path="res://assets/equip.png" id="2_4t1gm"]
 
 [resource]
 script = ExtResource("1_akq2m")
 equipableIds = null
 benifitIds = null
 unitName = "Heck yeah"
+sprite = ExtResource("2_4t1gm")
 id = 1
 stamina = 15
 strength = 5
@@ -14,7 +16,7 @@ defense = 3
 speed = 2
 focus = 3
 startingSpec = 10
-personalSkills = [0]
+personalSkills = Array[Resource("res://src/skill_resource.gd")]([])
 strengthSkills = {
 1: 30,
 30: 80

@@ -4,6 +4,8 @@ class_name SkillButton
 
 @export var skill:Skill
 
+func _ready():
+	grab_focus()
 
 func set_skill(value:Skill):
 	skill = value

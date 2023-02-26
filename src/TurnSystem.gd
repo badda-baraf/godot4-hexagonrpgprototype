@@ -27,7 +27,9 @@ func _input(event):
 	if event.is_action_pressed("act"):
 		if Game.focusedCharacter is CharacterUnit:
 			if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+#				Game.currentCursor.set_physics_process(false)
 				await act()
+#				Game.currentCursor.set_physics_process(true)
 				Game.finishedAction.emit()
 	if event.is_action_pressed("defend"):
 		await defend()
@@ -35,7 +37,9 @@ func _input(event):
 		check_turn()
 	if event.is_action_pressed("move"):
 			if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+				Game.state = Game.STATE.CHOOSING
 				await move()
+				Game.state = Game.STATE.BATTLE
 				Game.finishedAction.emit()
 				check_turn()
 
@@ -61,7 +65,8 @@ func move():
 		await Game.currentCursor.selectedTile
 		if !Game.currentCursor.is_focused_on_unit() and Game.currentTilemap.local_to_map(Game.currentCursor.position) in tiles:
 			subject.dehighlight_tiles()
-			subject.position = Game.currentCursor.position
+			var tile = Game.currentTilemap.local_to_map(Game.currentCursor.position)
+			subject.position = Game.currentTilemap.map_to_local(tile)
 			subject.acted = true
 			break
 		else:
@@ -79,6 +84,7 @@ func act():
 		au.show()
 	#	add_child(au)
 		au.populate_ui(Game.focusedCharacter)
+		
 		await Game.chosenSkill
 		print_debug("finished skill")
 		au.hide()

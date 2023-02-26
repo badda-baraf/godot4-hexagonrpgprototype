@@ -1,69 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://uptvhq8u4gi4"]
+[gd_scene load_steps=4 format=3 uid="uid://uptvhq8u4gi4"]
 
 [ext_resource type="Script" path="res://src/UnitDataUI.gd" id="1_4u756"]
 [ext_resource type="Texture2D" uid="uid://cby24m63ucdpk" path="res://menu_box_texture.png" id="2_l6fc0"]
 
-[node name="Control" type="Control"]
+[sub_resource type="Theme" id="Theme_hywu5"]
+
+[node name="UnitData" type="Control"]
 layout_mode = 3
-anchor_left = 0.601
-anchor_top = 0.683
-anchor_right = 0.938
+anchor_left = 0.527
+anchor_top = 0.466
+anchor_right = 0.941
 anchor_bottom = 0.934
-offset_left = -0.35199
-offset_top = -1.58401
-offset_right = 3.42395
+offset_left = -0.104004
+offset_top = 0.0319824
+offset_right = -0.0321045
 offset_bottom = 1.76801
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_hywu5")
 script = ExtResource("1_4u756")
 
 [node name="PanelContainer" type="NinePatchRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.079
-anchor_top = -0.361
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.0319977
-offset_top = -0.0739937
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_l6fc0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.041
-anchor_top = 0.172
-anchor_right = 0.96
-anchor_bottom = 0.818
-offset_left = -1.343
-offset_top = -5.872
-offset_right = -1.08002
-offset_bottom = 24.132
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.5
+offset_top = -105.5
+offset_right = 162.5
+offset_bottom = 104.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Name"
 
 [node name="AttackLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Attack"
 
 [node name="StaminaLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Stamina"
 
 [node name="DefenseLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Defense"
 
 [node name="FocusLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Focus"
 
 [node name="SkillsLabel" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Skills"

@@ -1,7 +1,11 @@
 extends Node
 
 
-var allUnitsPaths = {"res://Resources/Units/test_unit.tres":"","res://Resources/Units/test_unit2.tres":"","res://Resources/Units/test_unit3.tres":""}
+var allUnitsPaths = {"res://Resources/Units/players_prototype/player_unit_mc.tres":"res://Resources/Equips/midandmid_equip.tres",
+"res://Resources/Units/players_prototype/player_unit_rally.tres":"res://Resources/Equips/beefybutweak_equip.tres"
+,"res://Resources/Units/players_prototype/player_unit_ranger.tres":"res://Resources/Equips/midandmid_equip.tres",
+"res://Resources/Units/players_prototype/player_unit_skilled.tres":"res://Resources/Equips/midandmid_equip.tres",
+"res://Resources/Units/players_prototype/player_unit_fighter.tres":"res://Resources/Equips/strongbutshort_equip.tres"}
 signal show_ui
 var activeUnits = {}
 var activeUnitsResouces = {}
@@ -12,6 +16,8 @@ var focusedEquip
 var selectedUnit
 var selectedSkill
 var actingCharacter
+var actUi
+var canvasLayer
 var state = STATE.BATTLE
 signal finishedAction
 signal chosenSkill
@@ -130,8 +136,13 @@ func cast_skill_from_ai(skill:Skill,caster:CharacterUnit,targets:Array):
 func get_targets(targetMax:int,range:int) -> Array[CharacterUnit]:
 #	hide_ui.emit()
 	var arr:Array[CharacterUnit] = []
+	var castMenu = load("res://CastMenu.tscn").instantiate()
+	canvasLayer.add_child(castMenu)
+	var index = arr.size()
 	while(!arr.size() == targetMax):
 #	for i in range(targetMax):
+		castMenu.label.text = "targets left: " + str(arr.size() + 1)
+		actUi.hide()
 		await selectedCharacter
 		print_debug(selectedUnit)
 		print_debug(actingCharacter)
@@ -140,6 +151,7 @@ func get_targets(targetMax:int,range:int) -> Array[CharacterUnit]:
 		elif selectedUnit is CharacterUnit:
 			arr.append(selectedUnit)
 			selectedUnit = null
+	castMenu.queue_free()
 	return arr
 
 

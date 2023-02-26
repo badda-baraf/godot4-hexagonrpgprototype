@@ -6,6 +6,7 @@ extends Control
 @onready var skillButton = preload("res://SkillButton.tscn")
 
 func _ready():
+	Game.actUi = self
 	skillListContainer.grab_focus()
 #	Game.hide_ui.connect(free_ui)
 
@@ -22,11 +23,16 @@ func populate_ui(unit:CharacterUnit):
 	if !unit == null:
 		print_debug(unit.get_unlocked_skills_ids())
 		for i in unit.get_unlocked_skills_ids():
-			var skill = Game.get_skill_by_id(i)
+			var skill
+			if i is int:
+				skill = Game.get_skill_by_id(i)
+			else:
+				skill = i
 			if !skill == null:
 				var sb = skillButton.instantiate()
 				skillListContainer.add_child(sb)
 				sb.set_skill(skill)
+		skillList.get_child(0).grab_focus()
 	else:
 		print_debug("lack of unit")
 		queue_free()

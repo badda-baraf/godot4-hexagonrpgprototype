@@ -5,6 +5,7 @@ class_name Unit
 # this is beta rn since i want it to scale well. 
 # probably have a check if the id is taken then print error and assign a new number id
 @export var unitName = ""
+@export var unitSpritePath:String = "res://assets/Skilledsprite.png"
 @export var id:int = 0
 @export var stamina:int = 15
 @export var strength:int = 5

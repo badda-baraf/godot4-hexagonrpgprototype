@@ -1,22 +1,26 @@
 extends Area2D
 class_name CharacterUnit
 @onready var animationPlayer:AnimationPlayer = $AnimationPlayer
-@onready var sprite3d:Sprite2D = $Sprite
+@onready var sprite2d:Sprite2D = $Sprite
 @onready var ai:AI = $AI
 @onready var unitObject:UnitObject = $UnitObject
 @onready var equipableObject:EquipableObject = $EquipableObject
+
 var acted = false
 var defeated = false
 var defaultState
 var skillIds = []
 var agrrod:bool = true
-func _ready():	
-	print_debug(get_unlocked_skills_ids())
-	print_debug(is_valid_weilder())
-	body_entered.connect(on_hover)
-	body_exited.connect(on_hover_exited)
+func _ready():
+
+	print_debug(sprite2d.texture)
+#	print_debug(get_unlocked_skills_ids())
+#	print_debug(is_valid_weilder())
+	area_entered.connect(on_hover)
+	area_exited.connect(on_hover_exited)
 	reset_stats()
 	defaultState = attack_state
+	sprite2d.texture = load(unitObject.unitResource.unitSpritePath)
 	ai.push_state(defaultState)
 	skillIds = get_unlocked_skills_ids()
 
@@ -44,6 +48,7 @@ func defend_state():
 				ai.push_state(support_state())
 
 func reset_stats():
+	print_debug(unitObject.unitResource.unitSpritePath)
 	unitObject.currentDefense = unitObject.get_defense()
 	unitObject.currentSpeed = unitObject.get_speed()
 	unitObject.currentFocus = unitObject.get_focus()
@@ -188,7 +193,8 @@ func get_traversible_units(startingPos):
 
 func highlight_tiles():
 	for i in get_traversible_tiles(position):
-		Game.currentHighlightmap.set_cell(0,i,2,Vector2i(1,0))
+		print_debug(Game.currentHighlightmap)
+		Game.currentHighlightmap.set_cell(0,i,0,Vector2i(0,2),1)
 
 func dehighlight_tiles():
 	Game.currentHighlightmap.clear_layer(0)
@@ -261,12 +267,14 @@ func on_hover(body:Node2D):
 		highlight_tiles()
 		if unitObject.get_unit_resource() in Game.activeUnitsResouces.keys():
 			print_debug("acted status is ", acted)
+		
 	#	Game.focusedEquip = equipableObject
 		Game.show_ui.emit()
 
 
 func on_hover_exited(body:Node2D):
-	dehighlight_tiles()
+	if Game.state != Game.STATE.CHOOSING:
+		dehighlight_tiles()
 	Game.hide_ui.emit()
 	Game.focusedCharacter = null
 #	Game.focusedEquip = null

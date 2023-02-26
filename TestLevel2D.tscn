@@ -45,7 +45,6 @@ layer_2/tile_data = PackedInt32Array(917525, 0, 1, 983061, 0, 1, 917526, 0, 1, 9
 
 [node name="Cursor" parent="." instance=ExtResource("2_mg3bu")]
 z_index = 2
-input_pickable = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

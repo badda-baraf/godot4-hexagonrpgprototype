@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://dn0uw485airc5"]
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://b3jfd1n1p3l57"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_5b4g2"]
 
 [resource]
 script = ExtResource("1_5b4g2")
-unitName = ""
+unitName = "A hero of legends"
+unitSpritePath = "res://assets/Bosssprite.png"
 id = 0
 stamina = 15
 strength = 5
@@ -12,7 +13,7 @@ defense = 3
 speed = 2
 focus = 3
 startingSpec = 10
-personalSkills = []
+personalSkills = Array[Resource("res://src/skill_resource.gd")]([])
 strengthSkills = {
 1: 30,
 30: 80

@@ -7,17 +7,17 @@
 [ext_resource type="Script" path="res://src/equiplable_object.gd" id="4_1xf7c"]
 [ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
 [ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gnnc2"]
-radius = 15.5563
+[ext_resource type="PackedScene" uid="uid://uujvvuyuv800" path="res://hex_collison_shape.tscn" id="8_l38gm"]
 
 [node name="CharacterUnit" type="Area2D"]
+collision_layer = 2
+collision_mask = 13
+input_pickable = false
 script = ExtResource("1_11rme")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_c0ajl")
 
 [node name="AI" type="Node" parent="."]
@@ -33,5 +33,5 @@ script = ExtResource("4_1xf7c")
 [node name="Stamina" type="Node" parent="."]
 script = ExtResource("6_8nx5b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gnnc2")
+[node name="CollisionPolygon2D" parent="." instance=ExtResource("8_l38gm")]
+scale = Vector2(2.5, 2.5)

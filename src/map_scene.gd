@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var tileMap:TileMap = $TileMap
+@onready var placementMap:TileMap = $InitalPlacements
+
 @onready var highlightMap = $HighlightTileMap
 
 
@@ -24,13 +26,12 @@ func _ready():
 	print_debug(enemiesJson)
 	if FileAccess.file_exists(enemiesJson):
 		load_data_from_json(enemiesJson)
-
-
-	$CanvasLayer/Control2.hide()
+	$CanvasLayer/UnitData.hide()
 	print_debug("tilemap size is:" + str(tileMap))
 	Game.currentTilemap = tileMap
 	Game.currentHighlightmap = highlightMap
 	Game.currentCursor = cursor
+	Game.canvasLayer = $CanvasLayer
 	match(get_mode()):
 		MODE.EXPLORE:
 			prepare_explore()
@@ -60,7 +61,7 @@ func prepare_fight():
 		newUnit.position = tileMap.map_to_local(Vector2i(enemy["x"],enemy["y"]))
 		newUnit.unitObject.unitResource = load(enemy["unit"])
 		newUnit.equipableObject.unitResource = load(enemy["equip"])
-	
+#		cursor.ray.add_exception(newUnit)
 #	for i in enemies:
 #		var newUnit = unitScene.instantiate()
 #		$enemies.add_child(newUnit)
@@ -75,10 +76,11 @@ func prepare_fight():
 	var resourcesKeys = resourcesDict.keys()
 	var resourceValues = resourcesDict.values()
 	var index = 0
+	#for player nodes
 	while index != resourcesKeys.size():
 		print_debug("place so and so")
 		await cursor.selectedTile
-		if !cursor.is_focused_on_unit():
+		if !cursor.is_focused_on_unit() and cursor.get_tile_cord() in placementMap.get_used_cells(0):
 			var newUnit = unitScene.instantiate()
 			$players.add_child(newUnit)
 			newUnit.position = tileMap.map_to_local(cursor.get_tile_cord())
@@ -87,9 +89,11 @@ func prepare_fight():
 				newUnit.equipableObject.unitResource = resourceValues[index]
 			index += 1
 			print_debug("blanks position is at", " ", str(cursor.get_tile_cord()))
+#			cursor.ray.add_exception(newUnit)
 		else:
 			print_debug("Cannot place unit here")
 	print_debug("finished player placements")
+	placementMap.hide()
 	Game.currentEnemiesNodes = $enemies.get_children()
 	Game.currentPlayerNodes = $players.get_children()
 

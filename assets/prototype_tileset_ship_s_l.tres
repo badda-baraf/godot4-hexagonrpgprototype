@@ -1,0 +1,25 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://54iogfb2b78i"]
+
+[ext_resource type="Texture2D" uid="uid://ycvpk1j7nat3" path="res://assets/tileset_hex_proto_l.png" id="1_nawe0"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a85iw"]
+texture = ExtResource("1_nawe0")
+texture_region_size = Vector2i(500, 500)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/next_alternative_id = 3
+0:2/0 = 0
+0:2/1 = 1
+0:2/1/modulate = Color(0.686275, 0.996078, 1, 1)
+0:2/2 = 2
+0:2/2/modulate = Color(0.901961, 0.780392, 0.937255, 1)
+
+[resource]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(500, 500)
+sources/0 = SubResource("TileSetAtlasSource_a85iw")

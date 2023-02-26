@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://cc6cug7wo66rk"]
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://rlxxng6fquiv"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_sxfw7"]
 
 [resource]
 script = ExtResource("1_sxfw7")
 unitName = "A Skilled Skill"
+unitSpritePath = "res://assets/Skilledsprite.png"
 id = 0
 stamina = 15
 strength = 5
@@ -12,7 +13,7 @@ defense = 3
 speed = 2
 focus = 3
 startingSpec = 10
-personalSkills = []
+personalSkills = Array[Resource("res://src/skill_resource.gd")]([])
 strengthSkills = {
 1: 30,
 30: 80

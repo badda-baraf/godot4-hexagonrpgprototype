@@ -1,15 +1,36 @@
-extends CharacterBody2D
+extends Area2D
 class_name Cursor
 
 #var velocity = Vector2(0,0)
-const SPEED = 300.0
+const TILESIZE = 75
 var tm:TileMap
+
+@onready var ray:RayCast2D = $RayCast2D
 signal selectedTile
+
+
+
+
+
 func _input(event):
 	if event.is_action_pressed("act"):
 		selectedTile.emit()
 		if Game.focusedCharacter !=null:
 			await set_selected_unit()
+	if event.is_action_pressed("ui_left"):
+		position.x -= TILESIZE
+	if event.is_action_pressed("ui_right"):
+		pass
+	if event.is_action_pressed("ui_right"):
+		position.x += TILESIZE
+	if event.is_action_pressed("ui_down"):
+		position.y += TILESIZE
+	if event.is_action_pressed("ui_up"):
+		position.y -= TILESIZE
+
+
+
+
 
 func get_tile_type():
 	var tileCord = get_tile_cord()
@@ -28,6 +49,13 @@ func get_tile_cord() -> Vector2i:
 	else:
 		return Vector2i(0,0)
 
+func get_tile_cord_spec(pos) -> Vector2i:
+	if !get_parent().get_node("TileMap") == null:
+		tm = get_parent().get_node("TileMap")
+		var vec = tm.local_to_map(position)
+		return vec
+	else:
+		return Vector2i(0,0)
 
 func is_focused_on_unit():
 	if Game.focusedCharacter != null:
@@ -47,9 +75,13 @@ func set_selected_unit():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	velocity = input_direction * SPEED
-	move_and_slide()
-
-#	position = get_global_mouse_position()
-#	print_debug(get_tile_cord())
-
+	position.snapped(Vector2.ONE *TILESIZE)
+	ray.target_position = input_direction * TILESIZE/2
+	
+	var tile = get_tile_cord()
+	if Game.state != Game.STATE.CHOOSING:
+		position += input_direction * TILESIZE/2
+		position.snapped(Vector2.ONE *TILESIZE)
+#	if Game.state != Game.STATE.CHOOSING:
+#		Game.currentHighlightmap.set_cell(0,get_tile_cord(),0,Vector2i(0,2),1)
+#		Game.currentHighlightmap.clear()
