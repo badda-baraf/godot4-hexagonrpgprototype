@@ -61,6 +61,7 @@ func prepare_fight():
 		newUnit.position = tileMap.map_to_local(Vector2i(enemy["x"],enemy["y"]))
 		newUnit.unitObject.unitResource = load(enemy["unit"])
 		newUnit.equipableObject.unitResource = load(enemy["equip"])
+		newUnit.reset_stats()
 #		cursor.ray.add_exception(newUnit)
 #	for i in enemies:
 #		var newUnit = unitScene.instantiate()
@@ -89,6 +90,7 @@ func prepare_fight():
 				newUnit.equipableObject.unitResource = resourceValues[index]
 			index += 1
 			print_debug("blanks position is at", " ", str(cursor.get_tile_cord()))
+			newUnit.reset_stats()
 #			cursor.ray.add_exception(newUnit)
 		else:
 			print_debug("Cannot place unit here")

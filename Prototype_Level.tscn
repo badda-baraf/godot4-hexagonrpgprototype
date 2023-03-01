@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://uptvhq8u4gi4" path="res://UnitDataUI.tscn" id="5_iwb7r"]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(1, 0)
 script = ExtResource("1_87ojf")
 
 [node name="TileMap" type="TileMap" parent="."]

@@ -13,9 +13,8 @@ var skillIds = []
 var agrrod:bool = true
 func _ready():
 
+	
 	print_debug(sprite2d.texture)
-#	print_debug(get_unlocked_skills_ids())
-#	print_debug(is_valid_weilder())
 	area_entered.connect(on_hover)
 	area_exited.connect(on_hover_exited)
 	reset_stats()
@@ -48,6 +47,7 @@ func defend_state():
 				ai.push_state(support_state())
 
 func reset_stats():
+	sprite2d.texture = load(unitObject.unitResource.unitSpritePath)
 	print_debug(unitObject.unitResource.unitSpritePath)
 	unitObject.currentDefense = unitObject.get_defense()
 	unitObject.currentSpeed = unitObject.get_speed()

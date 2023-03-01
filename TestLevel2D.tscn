@@ -17,6 +17,7 @@ size = Vector2(17, 1257)
 size = Vector2(17, 1257)
 
 [node name="Map" type="Node2D"]
+position = Vector2(1, 0)
 script = ExtResource("1_j5vw8")
 enemyColor = Color(0.215686, 0.407843, 0.282353, 1)
 
