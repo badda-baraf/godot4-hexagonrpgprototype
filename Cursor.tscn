@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://uujvvuyuv800" path="res://hex_collison_shape.tscn" id="3_jj1g2"]
 
 [node name="Cursor" type="Area2D"]
+collision_layer = 8
+collision_mask = 3
+priority = 2.0
 script = ExtResource("1_bdqat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

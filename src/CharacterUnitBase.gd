@@ -2,76 +2,73 @@ extends Area2D
 class_name CharacterUnit
 @onready var animationPlayer:AnimationPlayer = $AnimationPlayer
 @onready var sprite2d:Sprite2D = $Sprite
-@onready var ai:AI = $AI
+@onready var fsm:StackStateMachine = $AI
 @onready var unitObject:UnitObject = $UnitObject
 @onready var equipableObject:EquipableObject = $EquipableObject
+@onready var defaultStateNode = $States/DefaultState
+@onready var crisisStateNode = $States/CrisisState
+@onready var agressiveStateNode = $States/SupportState
+var defaultState:Callable
 
+var crisisState:Callable
+
+var agressiveState:Callable
 var acted = false
 var defeated = false
-var defaultState
 var skillIds = []
 var agrrod:bool = true
 func _ready():
-
 	print_debug(sprite2d.texture)
 #	print_debug(get_unlocked_skills_ids())
 #	print_debug(is_valid_weilder())
 	area_entered.connect(on_hover)
 	area_exited.connect(on_hover_exited)
 	reset_stats()
-	defaultState = attack_state
-	sprite2d.texture = load(unitObject.unitResource.unitSpritePath)
-	ai.push_state(defaultState)
+	defaultState = defaultStateNode._run
+	print_debug(defaultState)
+	crisisState = crisisStateNode._run
+	agressiveState = agressiveStateNode._run
+	setup_ai()
+
+
+	fsm.push_state(defaultState)
 	skillIds = get_unlocked_skills_ids()
 
 
-func run_ai():
-	reset_stats()
-	await ai.get_state().call()
-	print_debug(ai.get_state())
+func setup_ai():
+	var possibleDefaultState = unitObject.unitResource.defaultAiState
+	var possibleCrisistState = unitObject.unitResource.crisisAiState
+	var possibleAggresiveState = unitObject.unitResource.aggresiveAiState
+	if possibleDefaultState != null:
+		defaultState = possibleDefaultState.new()._run
+	if possibleCrisistState != null:
+		crisisState = possibleCrisistState.new()._run
+	if possibleAggresiveState != null:
+		agressiveState = possibleAggresiveState.new()._run
+		
+
+
+func _check_ai():
+	fsm.push_state(defaultState)
+	if unitObject.currentStamina <= unitObject.maxStamina/3:
+		fsm.push_state(crisisState)
+	if agrrod:
+		fsm.push_state(agressiveState)
 	
 
-
-
-
-func defend_state():
-	if agrrod:
-		ai.pop_state()
-		ai.push_state(attack_state())
-	unitObject.currentDefense = unitObject.get_defense() + 5
-	if unitObject.currentStamina >= 50:
-		ai.pop_state()
-		match(ai.currentType):
-			ai.TYPE.OFFENSE:
-				ai.push_state(attack_state())
-			ai.TYPE.SUPPORT:
-				ai.push_state(support_state())
+func _run_ai():
+	reset_stats()
+	await fsm.get_state().call(self)
+	print_debug(fsm.get_state())
 
 func reset_stats():
 	print_debug(unitObject.unitResource.unitSpritePath)
+	var unitSprite = load(unitObject.unitResource.unitSpritePath)
+	sprite2d.texture = unitSprite
 	unitObject.currentDefense = unitObject.get_defense()
 	unitObject.currentSpeed = unitObject.get_speed()
 	unitObject.currentFocus = unitObject.get_focus()
 	unitObject.currentStrength = unitObject.get_strength()
-
-func attack_state():
-	#find tile its occupying and its surronding 
-	var allies = []
-	if get_traversible_units(position).is_empty():
-		if agrrod:
-			move_until_unit()
-#			auto_move()
-
-		else:
-			ai.push_state(defend_state())
-	else:
-		var targetData = get_closest_unit_and_position_from_given_position(position)
-		if !targetData.is_empty():
-			var target = targetData.keys()[0]
-			var targetPos = targetData.values()[0]
-			var bestSkill = get_best_skill()
-			var targets = targetData.keys()
-			Game.cast_skill_from_ai(bestSkill,self,targets)
 
 func auto_move():
 	var movement = unitObject.unitResource.movement
@@ -88,7 +85,6 @@ func move_to_target(pos):
 	
 	position = Game.currentTilemap.map_to_local(newPositionTileTarget)
 	pass
-
 
 func move_until_unit():
 	if self in Game.currentEnemiesNodes:
@@ -126,7 +122,6 @@ func move_until_unit():
 						break
 	get_closest_unit_and_position_from_given_position(position)
 
-
 func move_to_closest_unit():
 		var units = get_traversible_units(position)
 		print_debug("can move")
@@ -137,16 +132,12 @@ func move_to_closest_unit():
 		print_debug(" to get to the closest unit", str(self), "will go to cord: ", points[-1] , "at real: ", Game.currentTilemap.map_to_local(points[-1]))
 		position = Game.currentTilemap.map_to_local(points[0])
 
-
-
 func get_path_to_position(pos:Vector2i):
 	var astar = AStarGrid2D.new()
 	astar.size = Game.currentTilemap.get_used_rect().size
 	astar.cell_size = Vector2i(32,32)
 	astar.update()
 	return astar.get_point_path(position,pos)
-	
-
 
 func get_best_skill() -> Skill:
 	var s:Skill = Game.get_skill_by_id(skillIds[0])
@@ -163,7 +154,6 @@ func get_best_skill() -> Skill:
 	print_debug("the chosen best skill is: ", s)
 	return s
 
-
 func is_skill_in_range(skill:Skill,unit:CharacterUnit):
 	var astar = AStarGrid2D.new()
 	astar.size = Game.currentTilemap.get_used_rect().size
@@ -174,8 +164,6 @@ func is_skill_in_range(skill:Skill,unit:CharacterUnit):
 		return true
 	else:
 		return false
-
-
 
 func get_traversible_units(startingPos):
 	var dict = {}
@@ -190,14 +178,14 @@ func get_traversible_units(startingPos):
 #	print_debug(dict)
 	return dict
 
-
 func highlight_tiles():
-	for i in get_traversible_tiles(position):
-		print_debug(Game.currentHighlightmap)
-		Game.currentHighlightmap.set_cell(0,i,0,Vector2i(0,2),1)
+	if Game.state != Game.STATE.CHOOSING:
+		for i in get_traversible_tiles(position):
+			Game.currentHighlightmap.set_cell(0,i,0,Vector2i(0,2),1)
 
 func dehighlight_tiles():
-	Game.currentHighlightmap.clear_layer(0)
+	if Game.state != Game.STATE.CHOOSING:
+		Game.currentHighlightmap.clear_layer(0)
 
 func get_path_to_unit(unit:CharacterUnit):
 	var astar = AStarGrid2D.new()
@@ -221,7 +209,6 @@ func get_closest_unit_and_position_from_given_position(pos):
 				newDict[i] = dict[i]
 #	print_debug(newDict)
 	return newDict
-
 
 func get_farthest_unit_and_position():
 	var dict = get_traversible_units(position)
@@ -257,9 +244,6 @@ func get_traversible_tiles(startingPos):
 
 
 
-func support_state():
-	
-	pass
 
 func on_hover(body:Node2D):
 	if body is Cursor:
@@ -267,10 +251,8 @@ func on_hover(body:Node2D):
 		highlight_tiles()
 		if unitObject.get_unit_resource() in Game.activeUnitsResouces.keys():
 			print_debug("acted status is ", acted)
-		
 	#	Game.focusedEquip = equipableObject
 		Game.show_ui.emit()
-
 
 func on_hover_exited(body:Node2D):
 	if Game.state != Game.STATE.CHOOSING:
@@ -278,13 +260,10 @@ func on_hover_exited(body:Node2D):
 	Game.hide_ui.emit()
 	Game.focusedCharacter = null
 #	Game.focusedEquip = null
-	
-
 
 func _on_clicked():
 	print_debug(unitObject.unitResource)
 	print_debug(equipableObject.unitResource)
-
 
 #glue node
 func is_valid_weilder():
@@ -295,41 +274,33 @@ func is_valid_weilder():
 	else:
 		return false
 
-
 func set_animation(animationName):
 	if animationPlayer.is_playing():
 		animationPlayer.stop()
 	animationPlayer.play(animationName)
 
-
-
 func get_unlocked_skills_ids():
 	var skills = []
-	skills.append_array(unitObject.get_unlocked_skills_ids())
+	var possibleSkills = unitObject.get_unlocked_skills_ids()
 	if is_valid_weilder():
-		skills.append_array(equipableObject.get_unlocked_skills_ids())
+		possibleSkills.append_array(equipableObject.get_unlocked_skills_ids())
+	for i in possibleSkills:
+		if i not in skills:
+			skills.append(i)
 	return skills
+
 
 
 func cast_skill(id):
 	var skillPath = "res://Resources/Skills/skill_003%d.tres"
 	var idSkillPath = skillPath % id
 	var skill:Skill = load(idSkillPath)
-	var target:UnitObject = get_ai_targets()
+#	var target:UnitObject = get_ai_targets()
+#	var target:UnitObject = get_ai_targets()
 	#get equip
 	var calcDamage = unitObject.get_unit_resource().strength + equipableObject.get_unit_resouce().strength
 	calcDamage += skill.strength
-
 	if skill.scriptToRun != null:
 		var script = skill.scriptToRun.new()
 		script.run()
 		script.queue_free()
-
-
-
-#make its own node?
-func get_ai_targets():
-	pass
-
-
-# also add the ai functions

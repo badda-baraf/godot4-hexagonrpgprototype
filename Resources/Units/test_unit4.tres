@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_1h6eh")
 unitName = "Unit 3 DEF"
+unitSpritePath = "res://assets/Skilledsprite.png"
+states = {}
 id = 2
 stamina = 50
 strength = 5
@@ -12,7 +14,7 @@ defense = 10
 speed = 2
 focus = 3
 startingSpec = 50
-personalSkills = []
+personalSkills = Array[Resource("res://src/skill_resource.gd")]([])
 strengthSkills = {
 1: 30,
 30: 80
@@ -22,3 +24,4 @@ focusSkills = {
 10: &"home"
 }
 defenseSkills = {}
+movement = 5

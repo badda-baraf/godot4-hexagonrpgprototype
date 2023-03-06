@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_5b4g2")
 unitName = "A hero of legends"
-unitSpritePath = "res://assets/Bosssprite.png"
+unitSpritePath = "res://assets/Skilledsprite.png"
 id = 0
 stamina = 15
 strength = 5

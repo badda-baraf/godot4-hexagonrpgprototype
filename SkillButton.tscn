@@ -1,8 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://dippiv6ue1opk"]
+[gd_scene load_steps=5 format=3 uid="uid://dippiv6ue1opk"]
 
 [ext_resource type="Script" path="res://src/SkillButton.gd" id="1_a8ddm"]
+[ext_resource type="Texture2D" uid="uid://cby24m63ucdpk" path="res://menu_box_texture.png" id="1_kav2r"]
+[ext_resource type="Texture2D" uid="uid://od84ry87q85e" path="res://menu_box_texture_pressed.png" id="2_plv7m"]
+[ext_resource type="Texture2D" uid="uid://dcuy4ukuhjyk5" path="res://menu_box_texture_hover.png" id="3_tajnu"]
 
-[node name="SkillButton" type="Button"]
-offset_right = 58.0
-offset_bottom = 8.0
+[node name="SkillButton" type="TextureButton"]
+anchors_preset = -1
+anchor_right = 0.21441
+anchor_bottom = 0.0864198
+texture_normal = ExtResource("1_kav2r")
+texture_pressed = ExtResource("2_plv7m")
+texture_hover = ExtResource("3_tajnu")
+stretch_mode = 0
 script = ExtResource("1_a8ddm")
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -18.5
+offset_right = 83.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/table_odd_row_bg = Color(0, 0, 0, 1)
+theme_override_colors/table_even_row_bg = Color(0, 0, 0, 1)
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Placeholder Skill"
+scroll_active = false
+autowrap_mode = 0

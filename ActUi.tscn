@@ -5,47 +5,42 @@
 
 [node name="ActUi" type="Control"]
 layout_mode = 3
-anchor_left = 0.023
-anchor_top = 0.115
-anchor_right = 0.311
-anchor_bottom = 0.711
-offset_left = 751.504
-offset_top = -25.52
-offset_right = 755.728
-offset_bottom = -23.728
-grow_horizontal = 2
+anchor_left = 0.664062
+anchor_top = 0.135802
+anchor_right = 1.0
+anchor_bottom = 0.864198
+grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_0pj7q")
+metadata/_edit_use_anchors_ = true
 
-[node name="PanelContainer" type="NinePatchRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 0.989664
+anchor_bottom = 0.993644
+texture = ExtResource("2_ia4ke")
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillList" type="ScrollContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.156658
+anchor_top = 0.162047
+anchor_right = 0.840731
+anchor_bottom = 0.840085
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-texture = ExtResource("2_ia4ke")
-
-[node name="SkillList3" type="ItemList" parent="PanelContainer"]
-layout_mode = 2
-allow_reselect = true
-text_overrun_behavior = 0
-item_count = 2
-same_column_width = true
-item_0/text = "ww"
-item_1/text = "ww"
-
-[node name="SkillList" type="ScrollContainer" parent="PanelContainer"]
-layout_mode = 2
-offset_right = 336.0
-offset_bottom = 388.0
 follow_focus = true
 horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/SkillList"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/SkillList" node_paths=PackedStringArray("shortcut_context")]
+custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
-focus_mode = 2
+size_flags_vertical = 2
+shortcut_context = NodePath(".")
+theme_override_constants/separation = 0
 alignment = 1

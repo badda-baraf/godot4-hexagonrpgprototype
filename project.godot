@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Game="*res://src/Game.gd"
+SkillManager="*res://src/managers/skill_manager.gd"
+BattleActionManager="*res://src/managers/battle_action_manager.gd"
 
 [display]
 

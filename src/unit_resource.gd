@@ -5,7 +5,16 @@ class_name Unit
 # this is beta rn since i want it to scale well. 
 # probably have a check if the id is taken then print error and assign a new number id
 @export var unitName = ""
-@export var unitSpritePath:String = "res://assets/Skilledsprite.png"
+@export var unitSpritePath:String
+
+
+@export var defaultAiState:Script
+
+@export var crisisAiState:Script
+
+@export var aggresiveAiState:Script
+
+
 @export var id:int = 0
 @export var stamina:int = 15
 @export var strength:int = 5
@@ -14,6 +23,7 @@ class_name Unit
 @export var focus:int = 5
 @export var startingSpec:int = 10
 @export var personalSkills:Array[Skill] = []
+
 #Im not sure if having an object be directly connected to the dict is a good idea so 
 # ill try a int (level) key as well as a int value that serves as the "pointer" to the skill object
 

@@ -36,12 +36,13 @@ func _input(event):
 		Game.finishedAction.emit()
 		check_turn()
 	if event.is_action_pressed("move"):
-			if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
-				Game.state = Game.STATE.CHOOSING
-				await move()
-				Game.state = Game.STATE.BATTLE
-				Game.finishedAction.emit()
-				check_turn()
+			if Game.focusedCharacter != null:
+				if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+					Game.state = Game.STATE.CHOOSING
+					await move()
+					Game.state = Game.STATE.BATTLE
+					Game.finishedAction.emit()
+					check_turn()
 
 
 func skip_turn():
@@ -173,7 +174,7 @@ func enemy_turn():
 			i.acted = false
 	for i in get_parent().get_node("enemies").get_children():
 		check_turn()
-		await i.run_ai()
+		await i._run_ai()
 		i.acted = true
 		print_debug(i,"acted")
 	next_turn()

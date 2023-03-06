@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://qne41qp2oyn"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_kpc7n"]
-[ext_resource type="Texture2D" uid="uid://d106gmr3clbut" path="res://assets/Skilledsprite.png" id="2_s66aa"]
 
 [resource]
 script = ExtResource("1_kpc7n")
 unitName = "A skilled Ally"
-unitSprite = ExtResource("2_s66aa")
+unitSpritePath = "res://assets/Skilledsprite.png"
 id = 0
 stamina = 15
 strength = 5

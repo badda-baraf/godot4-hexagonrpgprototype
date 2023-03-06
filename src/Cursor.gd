@@ -17,19 +17,23 @@ func _input(event):
 		selectedTile.emit()
 		if Game.focusedCharacter !=null:
 			await set_selected_unit()
-	if event.is_action_pressed("ui_left"):
-		position.x -= TILESIZE
-	if event.is_action_pressed("ui_right"):
-		pass
-	if event.is_action_pressed("ui_right"):
-		position.x += TILESIZE
-	if event.is_action_pressed("ui_down"):
-		position.y += TILESIZE
-	if event.is_action_pressed("ui_up"):
-		position.y -= TILESIZE
+	
+	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	
+	next_tile(direction)
 
 
+func next_tile(direction):
 
+	var currentTile = get_tile_cord()
+
+	var nextTile = currentTile + Vector2i(direction)
+	if direction.x != 0 and direction.y != 0:
+		nextTile = Vector2i(currentTile.x+direction.x,currentTile.y + direction.y)
+
+	position = Game.currentTilemap.map_to_local(nextTile)
+	
+	
 
 
 func get_tile_type():
@@ -79,9 +83,9 @@ func _physics_process(delta):
 	ray.target_position = input_direction * TILESIZE/2
 	
 	var tile = get_tile_cord()
-	if Game.state != Game.STATE.CHOOSING:
-		position += input_direction * TILESIZE/2
-		position.snapped(Vector2.ONE *TILESIZE)
+#	if Game.state != Game.STATE.CHOOSING:
+#		position += input_direction * TILESIZE/2
+#		position.snapped(Vector2.ONE *TILESIZE)
 #	if Game.state != Game.STATE.CHOOSING:
 #		Game.currentHighlightmap.set_cell(0,get_tile_cord(),0,Vector2i(0,2),1)
 #		Game.currentHighlightmap.clear()

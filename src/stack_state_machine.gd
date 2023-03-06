@@ -1,5 +1,5 @@
 extends Node
-class_name AI
+class_name StackStateMachine
 enum TYPE {SUPPORT,OFFENSE}
 @export var currentType:TYPE = TYPE.OFFENSE
 enum STATE {}
@@ -9,7 +9,6 @@ var stack:Array = []
 
 var currentState
 
-	
 func push_state(state):
 	stack.append(state)
 	if get_state() != state:
@@ -25,13 +24,4 @@ func get_state():
 func get_state_stack():
 	return stack
 
-
-#states here
-
-
-#func _process(_delta):
-#	var currentState = get_state()
-#	if currentState != null and get_parent() != null:
-#		get_parent().call(currentState)
-#	else:
-#		return 1  
+ 

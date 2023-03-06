@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cxmfdadur3k3" path="res://Cursor.tscn" id="5_gqdl0"]
 [ext_resource type="PackedScene" uid="uid://uptvhq8u4gi4" path="res://UnitDataUI.tscn" id="5_iwb7r"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Map" type="Node2D"]
 script = ExtResource("1_87ojf")
 
 [node name="TileMap" type="TileMap" parent="."]

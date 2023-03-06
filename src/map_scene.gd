@@ -61,16 +61,7 @@ func prepare_fight():
 		newUnit.position = tileMap.map_to_local(Vector2i(enemy["x"],enemy["y"]))
 		newUnit.unitObject.unitResource = load(enemy["unit"])
 		newUnit.equipableObject.unitResource = load(enemy["equip"])
-#		cursor.ray.add_exception(newUnit)
-#	for i in enemies:
-#		var newUnit = unitScene.instantiate()
-#		$enemies.add_child(newUnit)
-#		newUnit.position = tileMap.map_to_local(i)
-#		var enemyDict = enemies[i]
-#		print_debug(enemyDict)
-#		newUnit.unitObject.unitResource = load(enemyDict.keys()[0])
-#		newUnit.equipableObject.unitResource = load(enemyDict.values()[0])
-#		newUnit.modulate = enemyColor
+		newUnit.reset_stats()
 
 	var resourcesDict:Dictionary = Game.activeUnitsResouces
 	var resourcesKeys = resourcesDict.keys()
@@ -87,6 +78,7 @@ func prepare_fight():
 			newUnit.unitObject.unitResource = resourcesKeys[index]
 			if resourceValues[index] != null:
 				newUnit.equipableObject.unitResource = resourceValues[index]
+			newUnit.reset_stats()
 			index += 1
 			print_debug("blanks position is at", " ", str(cursor.get_tile_cord()))
 #			cursor.ray.add_exception(newUnit)

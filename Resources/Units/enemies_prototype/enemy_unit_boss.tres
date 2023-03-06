@@ -31,3 +31,4 @@ defenseSkills = {
 80: 30
 }
 movement = 5
+metadata/_editor_prop_ptr_defaultAi = NodePath("")

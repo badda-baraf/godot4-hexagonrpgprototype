@@ -1,13 +1,16 @@
 extends Control
 
 
-@onready var skillList = $PanelContainer/SkillList
-@onready var skillListContainer = $PanelContainer/SkillList/VBoxContainer
+@onready var skillList = $TextureRect/SkillList
+@onready var skillListContainer = $TextureRect/SkillList/VBoxContainer
 @onready var skillButton = preload("res://SkillButton.tscn")
+var focusedButton
+
 
 func _ready():
 	Game.actUi = self
-	skillListContainer.grab_focus()
+#	skillListContainer.grab_focus()
+	set_button_neighbors()
 #	Game.hide_ui.connect(free_ui)
 
 func free_ui():
@@ -32,9 +35,15 @@ func populate_ui(unit:CharacterUnit):
 				var sb = skillButton.instantiate()
 				skillListContainer.add_child(sb)
 				sb.set_skill(skill)
-		skillList.get_child(0).grab_focus()
+				sb.grab_focus()
+		set_button_neighbors()
 	else:
 		print_debug("lack of unit")
 		queue_free()
 
+
+func set_button_neighbors():
+	print_debug("setting controls")
+	focusedButton = skillListContainer.get_child(0)
+	
 

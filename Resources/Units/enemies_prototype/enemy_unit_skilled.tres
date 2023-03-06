@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="Unit" load_steps=2 format=3 uid="uid://rlxxng6fquiv"]
+[gd_resource type="Resource" script_class="Unit" load_steps=3 format=3 uid="uid://rlxxng6fquiv"]
 
 [ext_resource type="Script" path="res://src/unit_resource.gd" id="1_sxfw7"]
+[ext_resource type="Texture2D" uid="uid://d106gmr3clbut" path="res://assets/Skilledsprite.png" id="2_67x6p"]
 
 [resource]
 script = ExtResource("1_sxfw7")
 unitName = "A Skilled Skill"
-unitSpritePath = "res://assets/Skilledsprite.png"
+unitSprite = ExtResource("2_67x6p")
 id = 0
 stamina = 15
 strength = 5
