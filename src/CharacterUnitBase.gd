@@ -246,19 +246,21 @@ func get_traversible_tiles(startingPos):
 
 
 func on_hover(body:Node2D):
-	if body is Cursor:
-		Game.focusedCharacter = self
-		highlight_tiles()
-		if unitObject.get_unit_resource() in Game.activeUnitsResouces.keys():
-			print_debug("acted status is ", acted)
-	#	Game.focusedEquip = equipableObject
-		Game.show_ui.emit()
+	pass
+#	if body is Cursor:
+##		Game.focusedCharacter = self
+#		highlight_tiles()
+#		if unitObject.get_unit_resource() in Game.activeUnitsResouces.keys():
+#			print_debug("acted status is ", acted)
+#	#	Game.focusedEquip = equipableObject
+#		Game.show_ui.emit()
 
 func on_hover_exited(body:Node2D):
-	if Game.state != Game.STATE.CHOOSING:
-		dehighlight_tiles()
-	Game.hide_ui.emit()
-	Game.focusedCharacter = null
+	pass
+#	if Game.state != Game.STATE.CHOOSING:
+#		dehighlight_tiles()
+#	Game.hide_ui.emit()
+#	Game.focusedCharacter = null
 #	Game.focusedEquip = null
 
 func _on_clicked():

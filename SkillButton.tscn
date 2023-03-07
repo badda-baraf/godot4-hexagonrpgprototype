@@ -9,9 +9,10 @@
 anchors_preset = -1
 anchor_right = 0.21441
 anchor_bottom = 0.0864198
+keep_pressed_outside = true
 texture_normal = ExtResource("1_kav2r")
 texture_pressed = ExtResource("2_plv7m")
-texture_hover = ExtResource("3_tajnu")
+texture_focused = ExtResource("3_tajnu")
 stretch_mode = 0
 script = ExtResource("1_a8ddm")
 metadata/_edit_use_anchors_ = true

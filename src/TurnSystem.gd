@@ -51,6 +51,8 @@ func skip_turn():
 func cancel():
 	if  $"../CanvasLayer/ActUi".is_visible_in_tree():
 		$"../CanvasLayer/ActUi".hide()
+		$"../CanvasLayer/ActUi".clear_ui()
+		
 	if !lastPosition == null and  !lastSelectedUnit == null:
 		lastSelectedUnit.position = lastPosition
 		lastSelectedUnit.dehighlight_tiles()

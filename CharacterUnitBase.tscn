@@ -7,15 +7,16 @@
 [ext_resource type="Script" path="res://src/equiplable_object.gd" id="4_1xf7c"]
 [ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
 [ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
-[ext_resource type="PackedScene" uid="uid://uujvvuyuv800" path="res://hex_collison_shape.tscn" id="8_l38gm"]
 [ext_resource type="Script" path="res://src/ai_states/attack_state.gd" id="9_d7wks"]
 [ext_resource type="Script" path="res://src/ai_states/defend_state.gd" id="10_0qfcg"]
 [ext_resource type="Script" path="res://src/ai_states/support_state.gd" id="11_aoeo0"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwjaf"]
+size = Vector2(124, 124)
+
 [node name="CharacterUnit" type="Area2D"]
-collision_layer = 2
-collision_mask = 13
 input_pickable = false
+priority = 8.0
 script = ExtResource("1_11rme")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -36,9 +37,6 @@ script = ExtResource("4_1xf7c")
 [node name="Stamina" type="Node" parent="."]
 script = ExtResource("6_8nx5b")
 
-[node name="CollisionPolygon2D" parent="." instance=ExtResource("8_l38gm")]
-scale = Vector2(2.5, 2.5)
-
 [node name="States" type="Node" parent="."]
 
 [node name="DefaultState" type="Node" parent="States"]
@@ -49,3 +47,8 @@ script = ExtResource("10_0qfcg")
 
 [node name="SupportState" type="Node" parent="States"]
 script = ExtResource("11_aoeo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_cwjaf")

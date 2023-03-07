@@ -55,6 +55,7 @@ func dehighlight():
 
 func cast_skill(skill:Skill,actor:CharacterUnit):
 #	actingCharacter = selectedUnit
+	Game.currentCursor.set_process_input(true)
 	Game.actingCharacter = actor
 	match(skill.costType):
 		Skill.COSTTYPE.UNIT:

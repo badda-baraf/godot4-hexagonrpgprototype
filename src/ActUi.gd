@@ -9,9 +9,12 @@ var focusedButton
 
 func _ready():
 	Game.actUi = self
+	skillListContainer.grab_focus()
 #	skillListContainer.grab_focus()
-	set_button_neighbors()
+#	set_button_neighbors()
 #	Game.hide_ui.connect(free_ui)
+
+
 
 func free_ui():
 	queue_free()
@@ -23,6 +26,7 @@ func clear_ui():
 
 func populate_ui(unit:CharacterUnit):
 	clear_ui()
+	Game.currentCursor.set_process_input(false)
 	if !unit == null:
 		print_debug(unit.get_unlocked_skills_ids())
 		for i in unit.get_unlocked_skills_ids():
@@ -35,7 +39,7 @@ func populate_ui(unit:CharacterUnit):
 				var sb = skillButton.instantiate()
 				skillListContainer.add_child(sb)
 				sb.set_skill(skill)
-				sb.grab_focus()
+#				sb.grab_focus()
 		set_button_neighbors()
 	else:
 		print_debug("lack of unit")
@@ -45,5 +49,6 @@ func populate_ui(unit:CharacterUnit):
 func set_button_neighbors():
 	print_debug("setting controls")
 	focusedButton = skillListContainer.get_child(0)
+	focusedButton.grab_focus()
 	
 

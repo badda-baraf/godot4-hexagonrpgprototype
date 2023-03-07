@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://src/Cursor.gd" id="1_bdqat"]
 [ext_resource type="Texture2D" uid="uid://b2kc2dqm5qh7o" path="res://assets/hex_tiles_blank.png" id="2_ft8dt"]
-[ext_resource type="PackedScene" uid="uid://uujvvuyuv800" path="res://hex_collison_shape.tscn" id="3_jj1g2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibqti"]
+size = Vector2(488, 504)
 
 [node name="Cursor" type="Area2D"]
-collision_layer = 8
-collision_mask = 3
-priority = 2.0
+collision_priority = 3.0
 script = ExtResource("1_bdqat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,9 +18,14 @@ texture = ExtResource("2_ft8dt")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.2, 0.2)
 
-[node name="HexCollisonShape" parent="." instance=ExtResource("3_jj1g2")]
-scale = Vector2(10, 10)
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 26)
 collide_with_bodies = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_as_relative = false
+position = Vector2(2, -1)
+shape = SubResource("RectangleShape2D_ibqti")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
