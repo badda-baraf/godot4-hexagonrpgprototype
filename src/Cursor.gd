@@ -21,9 +21,10 @@ func _on_area_entered(body):
 
 func _on_area_exited(body):
 #	if Game.state != Game.STATE.CHOOSING:
-	Game.focusedCharacter.dehighlight_tiles()
+	if Game.focusedCharacter != null:
+		Game.focusedCharacter.dehighlight_tiles()
+		Game.focusedCharacter = null
 	Game.hide_ui.emit()
-	Game.focusedCharacter = null
 	print_debug(Game.focusedCharacter)
 
 

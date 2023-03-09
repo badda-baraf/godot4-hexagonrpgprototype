@@ -15,7 +15,8 @@ var lastPosition
 var lastSelectedUnit:CharacterUnit
 func _input(event):
 	if event.is_action_pressed("end"):
-		manuallyEnded = true
+		if Game.state != Game.STATE.CHOOSING:
+			manuallyEnded = true
 #		await skip_turn()
 #		next_turn()
 	if event.is_action_pressed("cancel"):
@@ -26,18 +27,20 @@ func _input(event):
 		check_turn()
 	if event.is_action_pressed("act"):
 		if Game.focusedCharacter is CharacterUnit:
-			if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+			if !Game.focusedCharacter.acted and !Game.focusedCharacter.defeated and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
 #				Game.currentCursor.set_physics_process(false)
 				await act()
 #				Game.currentCursor.set_physics_process(true)
 				Game.finishedAction.emit()
 	if event.is_action_pressed("defend"):
-		await defend()
-		Game.finishedAction.emit()
-		check_turn()
+		if Game.focusedCharacter is CharacterUnit:
+			if !Game.focusedCharacter.acted and !Game.focusedCharacter.defeated and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+				await defend()
+				Game.finishedAction.emit()
+				check_turn()
 	if event.is_action_pressed("move"):
 			if Game.focusedCharacter != null:
-				if !Game.focusedCharacter.acted and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
+				if !Game.focusedCharacter.acted and !Game.focusedCharacter.defeated and Game.focusedCharacter.unitObject.get_unit_resource() in Game.activeUnitsResouces:
 					Game.state = Game.STATE.CHOOSING
 					await move()
 					Game.state = Game.STATE.BATTLE
@@ -52,7 +55,8 @@ func cancel():
 	if  $"../CanvasLayer/ActUi".is_visible_in_tree():
 		$"../CanvasLayer/ActUi".hide()
 		$"../CanvasLayer/ActUi".clear_ui()
-		
+		Game.hide_ui.emit()
+		Game.actUi.hide()
 	if !lastPosition == null and  !lastSelectedUnit == null:
 		lastSelectedUnit.position = lastPosition
 		lastSelectedUnit.dehighlight_tiles()
@@ -82,13 +86,14 @@ func wait():
 
 
 func act():
+	Game.hide_ui.emit()
 	var au = $"../CanvasLayer/ActUi"
 	if !au == null:
 		au.show()
 	#	add_child(au)
 		au.populate_ui(Game.focusedCharacter)
-		
 		await Game.chosenSkill
+		au.clear_ui()
 		print_debug("finished skill")
 		au.hide()
 
@@ -125,7 +130,12 @@ func player_turn():
 	print_debug("players turn")
 	for i in get_parent().get_node("players").get_children():
 		i.acted = false
-	for i in get_parent().get_node("players").get_children():
+	var avaliableUnits = []
+	for i in Game.currentPlayerNodes:
+		if i.defeated == false:
+			avaliableUnits.append(i)
+#	for i in get_parent().get_node("players").get_children():
+	for i in avaliableUnits:
 #		i.acted = false
 		if manuallyEnded == true:
 			break

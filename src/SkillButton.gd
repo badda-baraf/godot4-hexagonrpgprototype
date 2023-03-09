@@ -12,6 +12,10 @@ func set_skill(value:Skill):
 	set_tooltip_text(skill.skillDescription)
 	text.text = str(skill.name," Strength: ",skill.strength," Cost: ",skill.chargeCost," Type: ",skill.type)
 
+#func _gui_input(event):
+#	if event.is_action_pressed("act") and has_focus():
+#		_pressed()
+
 
 #func _gui_input(event):
 #	if has_focus() and event.is_action_pressed("act"):

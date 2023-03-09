@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://dniujbarequpe"]
+
+[ext_resource type="Texture2D" uid="uid://cby24m63ucdpk" path="res://menu_box_texture.png" id="1_7wdfc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyewc"]
+texture = ExtResource("1_7wdfc")
+
+[node name="ResultMenu" type="Control"]
+layout_mode = 3
+anchor_left = -0.00347222
+anchor_top = 0.640432
+anchor_right = 1.00347
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fyewc")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.176724
+anchor_top = 0.2103
+anchor_right = 0.823276
+anchor_bottom = 0.7897
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "This is some placeholder text
+"
+metadata/_edit_use_anchors_ = true

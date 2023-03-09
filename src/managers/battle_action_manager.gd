@@ -94,6 +94,7 @@ func cast_skill(skill:Skill,actor:CharacterUnit):
 		await script.run()
 		script.queue_free()
 	Game.state = Game.STATE.BATTLE
+	Game.focusedCharacter = null
 	Game.chosenSkill.emit()
 
 

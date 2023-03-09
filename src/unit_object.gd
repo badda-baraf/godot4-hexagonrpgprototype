@@ -38,7 +38,7 @@ func check_health():
 	print_debug(unitResource.unitName , ": " , str(get_current_stamina()))
 	if get_current_stamina() <= 0:
 		get_parent().modulate = defeatedColor
-		defeated = true
+		get_parent().defeated = true
 #		get_parent().queue_free()
 
 func get_unlocked_skills_ids():

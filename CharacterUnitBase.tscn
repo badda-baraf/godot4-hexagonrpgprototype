@@ -18,6 +18,7 @@ size = Vector2(124, 124)
 input_pickable = false
 priority = 8.0
 script = ExtResource("1_11rme")
+enemyColor = Color(0.929412, 0.529412, 0.690196, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

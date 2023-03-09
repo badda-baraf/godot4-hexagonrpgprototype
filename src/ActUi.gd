@@ -9,10 +9,11 @@ var focusedButton
 
 func _ready():
 	Game.actUi = self
-	skillListContainer.grab_focus()
+#	skillListContainer.grab_focus()
 #	skillListContainer.grab_focus()
 #	set_button_neighbors()
 #	Game.hide_ui.connect(free_ui)
+
 
 
 

@@ -1,4 +1,4 @@
-extends Node
+extends AI_STATE
 
 class_name SupportState
 

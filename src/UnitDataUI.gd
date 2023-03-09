@@ -7,7 +7,10 @@ func _ready():
 func set_text():
 	var focusedUnit = Game.focusedCharacter
 	show()
-	$PanelContainer/VBoxContainer/NameLabel.text = str(focusedUnit.unitObject.unitResource.unitName + " " + str(focusedUnit.acted))
+	if focusedUnit in Game.currentPlayerNodes:
+		$PanelContainer/VBoxContainer/NameLabel.text = str(focusedUnit.unitObject.unitResource.unitName + " acted: " + str(focusedUnit.acted))
+	else:
+		$PanelContainer/VBoxContainer/NameLabel.text = str(focusedUnit.unitObject.unitResource.unitName)
 	$PanelContainer/VBoxContainer/StaminaLabel.text = str(focusedUnit.unitObject.currentStamina) + "/" + str(focusedUnit.unitObject.maxStamina)
 	$PanelContainer/VBoxContainer/AttackLabel.text =  "Strength: " + str(focusedUnit.unitObject.unitResource.strength)
 	$PanelContainer/VBoxContainer/DefenseLabel.text = "Defense: " + str(focusedUnit.unitObject.unitResource.defense)

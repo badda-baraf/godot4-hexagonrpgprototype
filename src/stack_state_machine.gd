@@ -18,7 +18,6 @@ func pop_state():
 	stack.pop_front()
 
 func get_state():
-
 	return stack[-1]
 
 func get_state_stack():

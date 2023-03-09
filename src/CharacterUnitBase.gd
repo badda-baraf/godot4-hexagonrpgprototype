@@ -8,6 +8,7 @@ class_name CharacterUnit
 @onready var defaultStateNode = $States/DefaultState
 @onready var crisisStateNode = $States/CrisisState
 @onready var agressiveStateNode = $States/SupportState
+@export var enemyColor:Color
 var defaultState:Callable
 
 var crisisState:Callable
@@ -18,12 +19,13 @@ var defeated = false
 var skillIds = []
 var agrrod:bool = true
 func _ready():
+	if get_parent().name == "enemies":
+		modulate = enemyColor
 	print_debug(sprite2d.texture)
-#	print_debug(get_unlocked_skills_ids())
-#	print_debug(is_valid_weilder())
 	area_entered.connect(on_hover)
 	area_exited.connect(on_hover_exited)
 	reset_stats()
+	unitObject.currentStamina = unitObject.unitResource.stamina
 	defaultState = defaultStateNode._run
 	print_debug(defaultState)
 	crisisState = crisisStateNode._run
@@ -86,7 +88,20 @@ func move_to_target(pos):
 	position = Game.currentTilemap.map_to_local(newPositionTileTarget)
 	pass
 
-func move_until_unit():
+
+
+
+func move_unil_unit():
+	var oppositionArray
+	if get_parent().name == "enemies":
+		oppositionArray = Game.currentPlayerNodes
+	if get_parent().name == "players":
+		pass
+	for i in oppositionArray:
+		pass
+
+
+func move_until_unit_old():
 	if self in Game.currentEnemiesNodes:
 		var playerUnits:Array = Game.currentPlayerNodes
 		var closestUnit:CharacterUnit
@@ -121,6 +136,12 @@ func move_until_unit():
 						position = Game.currentTilemap.map_to_local(targetPos)
 						break
 	get_closest_unit_and_position_from_given_position(position)
+
+
+
+
+
+
 
 func move_to_closest_unit():
 		var units = get_traversible_units(position)
