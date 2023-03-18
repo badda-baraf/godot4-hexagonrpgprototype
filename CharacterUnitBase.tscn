@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b3iyde3111y2" path="res://icon.svg" id="2_c0ajl"]
 [ext_resource type="Script" path="res://src/unit_object.gd" id="2_rs13p"]
 [ext_resource type="Script" path="res://src/equiplable_object.gd" id="4_1xf7c"]
-[ext_resource type="Resource" uid="uid://v22d0aonrflr" path="res://Resources/Units/test_unit.tres" id="4_66cvg"]
+[ext_resource type="Resource" uid="uid://sbthkjwl46sm" path="res://Resources/Units/enemies_prototype/enemy_unit_boss.tres" id="5_rm5oi"]
 [ext_resource type="Script" path="res://src/stamina.gd" id="6_8nx5b"]
 [ext_resource type="Script" path="res://src/ai_states/attack_state.gd" id="9_d7wks"]
 [ext_resource type="Script" path="res://src/ai_states/defend_state.gd" id="10_0qfcg"]
@@ -30,7 +30,7 @@ script = ExtResource("1_16vxs")
 
 [node name="UnitObject" type="Node" parent="."]
 script = ExtResource("2_rs13p")
-unitResource = ExtResource("4_66cvg")
+unitResource = ExtResource("5_rm5oi")
 
 [node name="EquipableObject" type="Node" parent="."]
 script = ExtResource("4_1xf7c")

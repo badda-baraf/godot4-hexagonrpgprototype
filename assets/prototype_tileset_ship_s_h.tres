@@ -1,6 +1,11 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://ccs4xsrkcccu2"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://ccs4xsrkcccu2"]
 
+[ext_resource type="PackedScene" uid="uid://bi84yphdjcg6k" path="res://CharacterUnitBase.tscn" id="1_hwpaj"]
 [ext_resource type="Texture2D" uid="uid://cwdy8vvopgp8l" path="res://assets/tileset_hex_proto.png" id="1_kpes5"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0qu43"]
+scenes/1/scene = ExtResource("1_hwpaj")
+scenes/1/display_placeholder = ExtResource("1_hwpaj")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4nbm"]
 texture = ExtResource("1_kpes5")
@@ -48,3 +53,4 @@ tile_offset_axis = 1
 tile_size = Vector2i(50, 50)
 physics_layer_0/collision_layer = 1
 sources/2 = SubResource("TileSetAtlasSource_c4nbm")
+sources/0 = SubResource("TileSetScenesCollectionSource_0qu43")
